@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Constant\MyConstant;
 use App\Models\Notification;
+use App\Notifications\RecordApprovedNotification;
 use App\Services\NotificationService;
 use App\Services\useValidator;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller
@@ -14,35 +15,63 @@ class NotificationController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $notifications = Notification::query();
-
-        if ($user->role == 'Parishioner') {
-            $notifications->whereIn('type', ['Request', 'Donation', 'Announcement']);
-        }
-
-        $notifications = $notifications->get();
-        $notifications->each(function ($notification) {
-            $notification->message = $notification->message . ' by ' . Auth::user()->name;
-        });
+        $notifications = $this->getUserNotifications($user);
 
         return view('admin.notification', compact('notifications'));
     }
 
-    public function store(Request $request)
+    private function getUserNotifications($user)
     {
-        $result = (new NotificationService(new useValidator))
-            ->store($request);
+        $query = Notification::query();
 
-        if ($result['error_code'] !== MyConstant::SUCCESS_CODE) {
-            return response()->json([
-                'error_code' => $result['error_code'],
-                'message' => $result['message'],
-            ], $result['status_code']);
+        if ($user->role === 'Parishioner') {
+            $query->whereIn('type', ['Request', 'Donation', 'Announcement', 'Approved']);
         }
 
-        return redirect()->back()->with([
+        return $query->get()->map(function ($notification) use ($user) {
+            $notification->message .= ' by ' . $user->name;
+            return $notification;
+        });
+    }
+
+    public function store(Request $request)
+    {
+        $notificationService = new NotificationService(new useValidator);
+        $result = $notificationService->store($request);
+
+        return $result['error_code'] !== MyConstant::SUCCESS_CODE
+            ? response()->json($this->formatErrorResponse($result), $result['status_code'])
+            : redirect()->back()->with($this->formatSuccessResponse($result));
+    }
+
+    private function formatErrorResponse($result)
+    {
+        return [
             'error_code' => $result['error_code'],
             'message' => $result['message'],
-        ]);
+        ];
     }
+
+    private function formatSuccessResponse($result)
+    {
+        return [
+            'error_code' => $result['error_code'],
+            'message' => $result['message'],
+        ];
+    }
+
+    // public function updateRecordStatus($recordId)
+    // {
+    //     $record = Record::findOrFail($recordId);
+
+    //     if ($record->status !== 'approved') {
+    //         $record->status = 'approved';
+    //         $record->save();
+
+    //         // Trigger notification to the record owner
+    //         $record->user->notify(new RecordApprovedNotification($record, Auth::user()->name));
+    //     }
+
+    //     return redirect()->back()->with('success', 'Record status updated to approved and notification sent.');
+    // }
 }

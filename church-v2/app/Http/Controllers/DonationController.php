@@ -46,6 +46,17 @@ class DonationController extends Controller
             ->paginate(10);
         return view('parishioner.donation', compact('donations'));
     }
+    public function showDonations()
+    {
+        $startOfMonth = now()->startOfMonth();
+        $endOfMonth = now()->endOfMonth();
+
+        $monthlyTotal = Donation::whereBetween('donation_date', [$startOfMonth, $endOfMonth])
+            ->sum('amount');
+
+        return view('parishioner.dashboard', compact('monthlyTotal'));
+    }
+
 
     public function store(Request $request)
     {

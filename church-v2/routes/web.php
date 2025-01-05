@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\DeletedRequestsController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\HomeController;
@@ -47,6 +48,7 @@ Route::middleware('Admin')->group(function () {
     Route::get('/admin/approval_request', [RequestController::class, 'approval_request'])->name('approval_request');
     Route::get('/admin/payment', [PaymentController::class, 'index'])->name('payment');
     Route::get('/admin/announcement', [AnnouncementController::class, 'index'])->name('announcement');
+    Route::get('/admin/dashboard', [DonationController::class, 'showDonations'])->name('show_donations');
 
     Route::post('/admin/priest', [PriestController::class, 'store'])->name('priest.store');
     Route::post('/admin/mail', [MailController::class, 'store'])->name('mail.store');
@@ -74,6 +76,9 @@ Route::middleware('Parishioner')->group(function () {
     Route::get('/parishioner/dashboard', [ParishionerController::class, 'index'])->name('parishioner_dashboard');
     Route::get('/parishioner/request', [RequestController::class, 'index'])->name('request');
     Route::get('/parishioner/donations', [DonationController::class, 'parishionerIndex'])->name('parishioner_donation');
+    Route::get('/parishioner/deleted_requests', [DeletedRequestsController::class, 'show'])->name('deleted_requests');
+    Route::get('/profile', [RequestController::class, 'showDeletedRequests']);
+    Route::get('/parishioner/dashboard', [DonationController::class, 'showDonations'])->name('show_donations');
 
     Route::post('/parishioner/request', [RequestController::class, 'store'])->name('request.store');
     Route::post('/parishioner/donations', [DonationController::class, 'store'])->name('donation.store');

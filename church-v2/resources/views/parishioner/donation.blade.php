@@ -211,6 +211,9 @@
                         This is the transaction ID from your GCash.
                     </label>
                 </div>
+
+                <input type="hidden" name="donation_date" value="{{ now()->toDateString() }}" />
+
                 <div class="mb-4">
                     <img src="{{ asset('assets/img/qr_code.jpg') }}" alt="QR Code" class="w-52 mx-auto">
                 </div>

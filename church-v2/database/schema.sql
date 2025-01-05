@@ -141,6 +141,7 @@ CREATE TABLE IF NOT EXISTS `trequests` (
     `approved_by` INT DEFAULT NULL,
     `status` VARCHAR(50) NOT NULL,
     `is_paid` ENUM('Paid', 'Unpaid') NOT NULL DEFAULT 'Unpaid',
+    `is_deleted` BOOLEAN NOT NULL DEFAULT FALSE,
     `notes` TEXT DEFAULT NULL,
     `file` VARCHAR(255) DEFAULT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

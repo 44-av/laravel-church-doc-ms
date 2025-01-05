@@ -43,6 +43,7 @@ class RequestService
                 'document_type' => $request->document_type,
                 'status' => 'Pending',
                 'is_paid' => 'Unpaid',
+                'is_deleted' => '0',
             ]);
 
             if ($request->document_type == 'Baptismal Certificate') {

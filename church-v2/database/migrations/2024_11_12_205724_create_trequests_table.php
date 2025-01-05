@@ -23,6 +23,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('status');
             $table->string('is_paid');
+            $table->string('is_deleted');
             $table->text('notes')->nullable();
             $table->string('file')->nullable();
             $table->timestamps();

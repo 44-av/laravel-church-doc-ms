@@ -45,13 +45,7 @@
                                         Document Type</th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Requested By</th>
-                                    <th
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Date Requested</th>
-                                    <th
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Approved by</th>
+                                        Approved By</th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Status</th>
@@ -68,188 +62,132 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach ($requests as $request)
-                                    <tr class="cursor-pointer">
+                                    <tr class="cursor-pointer"
+                                        onclick="document.getElementById('viewModal{{ $request->id }}').showModal()">
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             {{ $request->document_type }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ $request->user->name }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ $request->created_at }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             {{ $request->request_approved->name ?? 'N/A' }}</td>
-
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $request->status }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $request->is_paid }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             {{ strlen($request->notes) > 2 ? substr($request->notes, 0, 2) . '...' : $request->notes }}
                                         </td>
-                                        <td class="px-6 py-1 whitespace-nowrap">
+                                        <td class="px-6 py-4 whitespace-nowrap">
                                             @if ($request->is_paid == 'Unpaid')
-                                                <button title="Pay Now"
-                                                    class=" hover:bg-green-100 p-4 rounded-md mx-auto"
+                                                <button class="btn bg-blue-700 text-white hover:bg-blue-800"
                                                     onclick="event.stopPropagation(); editModal{{ $request->id }}.showModal()">
-                                                    <img src="{{ asset('assets/img/pay.png') }}"
-                                                        class="w-[20px] h-[20px]">
+                                                    Pay Now
                                                 </button>
                                             @endif
-                                            <button title="Edit" class="hover:bg-blue-100 p-4 rounded-md mx-auto"
-                                                onclick="document.getElementById('viewModal{{ $request->id }}').showModal()">
-                                                <img src="{{ asset('assets/img/edit.svg') }}"></button>
-
-                                            <button title="Delete" class="hover:bg-red-100 p-4 rounded-md mx-auto"
-                                                onclick="document.getElementById('viewModal{{ $request->id }}').showModal()">
-                                                <img src="{{ asset('assets/img/delete.png') }}"
-                                                    class="w-[20px] h-[20px]">
-                                            </button>
                                         </td>
                                     </tr>
 
-                                    <!-- Payment Modal -->
+                                    <!-- Edit Modal -->
                                     <dialog id="editModal{{ $request->id }}" class="modal">
-                                        <div class="modal-box rounded-lg shadow-lg w-11/12 max-w-5xl relative">
+                                        <div class="modal-box rounded-lg shadow-lg w-11/12 max-w-5xl">
                                             <div class="flex items-center gap-2">
                                                 <button class="btn text-black hover:bg-green-700 hover:text-white me-2"
                                                     type="button" onclick="editModal{{ $request->id }}.close()">
                                                     <i class='bx bx-left-arrow-alt'></i>
                                                 </button>
-                                                <h2 class="text-lg font-bold">Document Request Payment Summary</h2>
+                                                <h2 class="text-lg font-bold">Payment Information</h2>
                                             </div>
                                             <hr class="my-4">
                                             <form action="{{ route('payment.update', $request->id) }}" method="POST"
                                                 enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
-                                                <div class="space-y-4">
-                                                    <dl class="flex items-center justify-between gap-4">
-                                                        <dt class="text-gray-500 dark:text-gray-400">
-                                                            {{ $request->document_type }}</dt>
-                                                        <dd class="text-base font-medium text-gray-900 dark:text-white">
-                                                            ₱ {{ $request->certificate_type->amount ?? '' }}
-                                                        </dd>
-                                                    </dl>
+                                                <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                                    <div class="sm:col-span-3">
+                                                        <label for="amount"
+                                                            class="block text-sm/6 font-medium text-gray-900">Amount</label>
+                                                        <div class="mt-2">
+                                                            <input type="number" name="amount"
+                                                                class="input input-bordered w-full"
+                                                                value="{{ $request->certificate_type->amount ?? '' }}"
+                                                                readonly />
+                                                        </div>
+                                                    </div>
+                                                    <div class="sm:col-span-3">
+                                                        <label for="transaction_id"
+                                                            class="block text-sm/6 font-medium text-gray-900">Transaction
+                                                            ID</label>
+                                                        <div class="mt-2">
+                                                            <input type="text" name="transaction_id"
+                                                                class="input input-bordered w-full"
+                                                                value="{{ $request->payment->transaction_id ?? '' }}" />
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                                     <div class="sm:col-span-8">
                                                         <label for="payment_method"
-                                                            class="block text-sm font-medium text-gray-900">
-                                                            Payment Method
-                                                        </label>
+                                                            class="block text-sm/6 font-medium text-gray-900">Payment
+                                                            Method</label>
                                                         <div class="mt-2">
-                                                            <!-- Radio Buttons -->
-                                                            <div class="flex gap-4">
-                                                                <!-- GCash -->
-                                                                <label for="Gcash"
-                                                                    class="flex items-center gap-3 cursor-pointer border border-gray-300 px-4 py-3 rounded-md peer-checked:bg-blue-100 peer-checked:border-blue-600 hover:bg-gray-50">
-                                                                    <input type="radio" id="GCash"
-                                                                        name="payment_method" value="GCash"
-                                                                        class="peer hidden"
-                                                                        onchange="togglePopup(true)">
-                                                                    <img src="{{ asset('assets/img/gcash.png') }}"
-                                                                        alt="GCash" class="w-[20px] h-[20px]">
-                                                                    <span
-                                                                        class="peer-checked:text-blue-600 font-medium text-gray-900">GCash</span>
-                                                                </label>
-                                                                <label for="cash"
-                                                                    class="flex items-center gap-3 cursor-pointer border border-gray-300 px-4 py-3 rounded-md peer-checked:bg-blue-100 peer-checked:border-blue-600 hover:bg-gray-50">
-                                                                    <input type="radio" id="Cash"
-                                                                        name="payment_method" value="Cash"
-                                                                        class="peer hidden"
-                                                                        onchange="togglePopup(false)">
-                                                                    <img src="{{ asset('assets/img/cash.png') }}"
-                                                                        alt="Cash" class="w-[20px] h-[20px]">
-                                                                    <span
-                                                                        class="peer-checked:text-blue-600 font-medium text-gray-900">Cash</span>
-                                                                </label>
-                                                            </div>
+                                                            <select name="payment_method"
+                                                                class="input input-bordered w-full">
+                                                                <option value="">Select Payment Method</option>
+                                                                <option value="GCash">GCash</option>
+                                                                <option value="Walk-in">Walk-in</option>
+                                                            </select>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <!-- Transaction ID Field -->
-                                                <div id="transaction-id-container"
-                                                    class="mt-4 grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 hidden">
-                                                    <div class="sm:col-span-3">
-                                                        <label for="transaction_id"
-                                                            class="block text-sm font-medium text-gray-900">
-                                                            Transaction ID
-                                                        </label>
-                                                        <div class="mt-2">
-                                                            <input type="text" name="transaction_id"
-                                                                id="transaction_id"
-                                                                class="input input-bordered w-full"
-                                                                value="{{ $request->payment->transaction_id ?? '' }}">
-                                                        </div>
+                                                    <div class="sm:col-span-3" id="GCashQR" style="display: none;">
+                                                        <label class="block text-sm/6 font-medium text-gray-900">GCash
+                                                            QR Code</label>
+                                                        @if ($request->document_type == 'Baptismal Certificate')
+                                                            <div class="mt-2">
+                                                                <img src="{{ asset('assets/img/baptismal_certificate.png') }}"
+                                                                    alt="GCash QR Code" class="w-full h-full mx-auto">
+                                                            </div>
+                                                        @endif
+                                                        @if ($request->document_type == 'Marriage Certificate')
+                                                            <div class="mt-2">
+                                                                <img src="{{ asset('assets/img/marriage_certificate.png') }}"
+                                                                    alt="GCash QR Code" class="w-full h-full mx-auto">
+                                                            </div>
+                                                        @endif
+                                                        @if ($request->document_type == 'Death Certificate')
+                                                            <div class="mt-2">
+                                                                <img src="{{ asset('assets/img/death_certificate.png') }}"
+                                                                    alt="GCash QR Code" class="w-full h-full mx-auto">
+                                                            </div>
+                                                        @endif
+                                                        @if ($request->document_type == 'Confirmation Certificate')
+                                                            <div class="mt-2">
+                                                                <img src="{{ asset('assets/img/confirmation_certificate.png') }}"
+                                                                    alt="GCash QR Code" class="w-full h-full mx-auto">
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <hr class="my-4">
                                                 <div class="flex justify-end">
-                                                    <button
-                                                        class="btn text-black hover:bg-red-700 hover:text-white ms-2 mr-2"
-                                                        type="button"
-                                                        onclick="editModal{{ $request->id }}.close()">Close</button>
                                                     <button name="submit"
                                                         class="btn bg-blue-700 text-white hover:bg-blue-800"
-                                                        type="submit">Complete Payment</button>
+                                                        type="submit">Save</button>
+                                                    <button
+                                                        class="btn text-black hover:bg-red-700 hover:text-white ms-2"
+                                                        type="button"
+                                                        onclick="editModal{{ $request->id }}.close()">Close</button>
                                                 </div>
                                             </form>
                                         </div>
-                                        <div id="gcash-popup"
-                                            class="fixed inset-0 z-50 bg-black bg-opacity-50 hidden items-center justify-center">
-                                            <div class="relative w-[90%] max-w-md bg-white p-6 rounded-lg shadow-lg">
-                                                <button onclick="closePopup()"
-                                                    class="absolute top-2 right-2 text-gray-500 hover:text-gray-800">
-                                                    ✖
-                                                </button>
-                                                <p class="text-center text-gray-700 font-medium mb-4">Use this GCash QR
-                                                    Code
-                                                    for payment</p>
-                                                <!-- Dynamic QR Codes -->
-                                                <div class="relative">
-                                                    @if ($request->document_type == 'Baptismal Certificate')
-                                                        <img src="{{ asset('assets/img/baptismal_certificate.jpg') }}"
-                                                            alt="Baptismal Certificate" class="w-full h-auto mx-auto">
-                                                    @elseif ($request->document_type == 'Marriage Certificate')
-                                                        <img src="{{ asset('assets/img/marriage_certificate.jpg') }}"
-                                                            alt="Marriage Certificate" class="w-full h-auto mx-auto">
-                                                    @elseif ($request->document_type == 'Death Certificate')
-                                                        <img src="{{ asset('assets/img/death_certificate.') }}"
-                                                            alt="Death Certificate" class="w-full h-auto mx-auto">
-                                                    @elseif ($request->document_type == 'Confirmation Certificate')
-                                                        <img src="{{ asset('assets/img/confirmation_certificate.jpg') }}"
-                                                            alt="Confirmation Certificate"
-                                                            class="w-full h-auto mx-auto">
-                                                    @else
-                                                        <img src="{{ asset('assets/img/gcash-popup.png') }}"
-                                                            alt="Default GCash QR Code" class="w-full h-auto mx-auto">
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
                                     </dialog>
-
-
-
-
-
 
                                     <!-- View Modal -->
                                     <dialog id="viewModal{{ $request->id }}" class="modal">
                                         <div class="modal-box rounded-lg shadow-lg w-11/12 max-w-5xl">
-                                            <div class="flex items-center gap-4">
-                                                <button class="btn text-black hover:bg-green-700 hover:text-white me-2"
-                                                    type="button" onclick="viewModal{{ $request->id }}.close()">
-                                                    <i class='bx bx-left-arrow-alt'></i>
-                                                </button>
-                                                <div>
-                                                    <h2 class="text-lg font-bold">{{ $request->document_type }}
-                                                        Details</h2>
-                                                    <p class="text-gray-600 text-[12px]">Requested by:
-                                                        {{ $request->requested_by }}</p>
-                                                    <p class="text-gray-600 text-[12px]">Requested on:
-                                                        {{ $request->created_at }}</p>
-                                                </div>
-                                            </div>
-
+                                            <button class="btn text-black hover:bg-green-700 hover:text-white me-2"
+                                                type="button" onclick="viewModal{{ $request->id }}.close()">
+                                                <i class='bx bx-left-arrow-alt'></i>
+                                            </button>
                                             <hr class="my-4">
-
                                             @if ($request->document_type == 'Baptismal Certificate' && $request->id)
+                                                <h2 class="text-lg font-bold mb-4">Baptismal Certificate Details
+                                                </h2>
                                                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                                     <div class="sm:col-span-3">
                                                         <label class="input input-bordered flex items-center gap-2">
@@ -323,6 +261,8 @@
                                                 </div>
                                             @endif
                                             @if ($request->document_type == 'Marriage Certificate' && $request->id)
+                                                <h2 class="text-lg font-bold mb-4">Marriage Certificate Details
+                                                </h2>
                                                 <div class="flex flex-col gap-4">
                                                     <h3 class="text-md font-bold mb-4">Bride Information</h3>
                                                     <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -549,6 +489,7 @@
                                                 </div>
                                             @endif
                                             @if ($request->document_type == 'Death Certificate' && $request->id)
+                                                <h2 class="text-lg font-bold mb-4">Death Certificate Details</h2>
                                                 <div class="flex flex-col gap-4">
                                                     <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                                         <div class="sm:col-span-3">
@@ -631,6 +572,8 @@
                                                 </div>
                                             @endif
                                             @if ($request->document_type == 'Confirmation Certificate' && $request->id)
+                                                <h2 class="text-lg font-bold mb-4">Confirmation Certificate Details
+                                                </h2>
                                                 <div class="flex flex-col gap-4">
                                                     <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                                         <div class="sm:col-span-3">
@@ -754,469 +697,6 @@
         </div>
     </div>
 
-    <!-- Add Document Modal -->
-    <dialog id="addModal" class="modal">
-        <div class="modal-box rounded-lg shadow-lg w-11/12 max-w-3xl">
-            <div class="flex items-center">
-                <button class="btn text-black hover:bg-green-700 hover:text-white me-2" type="button"
-                    onclick="addModal.close()">
-                    <i class='bx bx-left-arrow-alt'></i>
-                </button>
-                <h3 class="text-lg font-bold">Add Request</h3>
-            </div>
-            <hr class="my-4">
-            <form action="{{ route('request.store') }}" method="POST" id="addRequestForm"
-                enctype="multipart/form-data">
-                @csrf
-                <input type="hidden" name="requested_by" value="{{ Auth::user()->name }}">
-                <input type="hidden" name="status" value="Pending">
-                <input type="hidden" name="is_paid" value="Unpaid">
-                <div class="flex items-center justify-center">
-                    <img src="{{ asset('assets/img/logo.png') }}" alt="St. Michael the Archangel Parish Logo"
-                        class="w-24 mb-4">
-                    <h3 class="text-lg font-bold mb-2 uppercase ms-4 text-center">St. Michael the Archangel
-                        Parish Diocese of Calbayog<br>Basey, Samar 6720 Philippines</h3>
-                </div>
 
-                <ol
-                    class="flex items-center mb-2 w-full p-3 space-x-2 text-sm font-medium text-center text-gray-500 bg-white border border-gray-200 rounded-lg shadow-s sm:text-base sm:p-4 sm:space-x-4 rtl:space-x-reverse">
-                    <li id="documentDetails" class="flex items-center text-blue-600 ">
-                        <span
-                            class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-blue-600 rounded-full shrink-0">
-                            1
-                        </span>
-                        <span class="hidden sm:inline-flex sm:ms-2">Request for Document</span>
-                        <svg class="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2" d="m7 9 4-4-4-4M1 9l4-4-4-4" />
-                        </svg>
-                    </li>
-                    <li id="documentDetails" class="flex items-center">
-                        <span
-                            class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-gray-500 rounded-full shrink-0 ">
-                            2
-                        </span>
-                        <span class="hidden sm:inline-flex sm:ms-2">Document Details</span>
-                        <svg class="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2" d="m7 9 4-4-4-4M1 9l4-4-4-4" />
-                        </svg>
-                    </li>
-                    <li id="documentDetails" class="flex items-center">
-                        <span
-                            class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-gray-500 rounded-full shrink-0 ">
-                            3
-                        </span>
-                        Payment Information
-                    </li>
-                </ol>
-
-
-                <div class="mb-4">
-                    <label class="block text-gray-700 font-medium">Document Type</label>
-                    <select name="document_type" id="document_type"
-                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-3 transition duration-150 ease-in-out"
-                        required>
-                        <option value="" readonly>Select Document Type</option>
-                        <option value="Baptismal Certificate">Baptismal Certificate</option>
-                        <option value="Marriage Certificate">Marriage Certificate</option>
-                        <option value="Death Certificate">Death Certificate</option>
-                        <option value="Confirmation Certificate">Confirmation Certificate</option>
-                    </select>
-                </div>
-                <hr class="my-4">
-                <div id="baptism" class="hidden">
-                    <h2 class="text-lg font-bold mb-4">Baptismal Certificate Details</h2>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Child</label>
-                            <input type="text" name="name_of_child" placeholder="Name of Child"
-                                class="input input-bordered w-full">
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Date of Birth</label>
-                            <input type="date" name="date_of_birth" placeholder="Date of Birth"
-                                class="input input-bordered w-full">
-                        </div>
-                    </div>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Place of Birth</label>
-                            <input type="text" name="place_of_birth" placeholder="Place of Birth"
-                                class="input input-bordered w-full">
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Date of Baptism</label>
-                            <input type="date" name="baptism_schedule" placeholder="Date of Baptism"
-                                class="input input-bordered w-full">
-                        </div>
-                    </div>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Father</label>
-                            <input type="text" name="name_of_father" placeholder="Name of Father"
-                                class="input input-bordered w-full">
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Mother</label>
-                            <input type="text" name="name_of_mother" placeholder="Name of Mother"
-                                class="input input-bordered w-full">
-                        </div>
-                    </div>
-                </div>
-
-                <div id="marriage" class="hidden">
-                    <h2 class="text-lg font-bold mb-4">Marriage Certificate Details</h2>
-                    <h3 class="text-md font-bold mb-4">Bride Information</h3>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Bride Name</label>
-                            <input type="text" name="bride_name" placeholder="Bride Name"
-                                class="input input-bordered w-full">
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Birthdate of Bride</label>
-                            <input type="date" id="birthdate_bride" name="birthdate_bride"
-                                placeholder="Birthdate of Bride" class="input input-bordered w-full">
-                        </div>
-                    </div>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Age of Bride</label>
-                            <input type="text" id="age_bride" name="age_bride" placeholder="Age of Bride"
-                                class="input input-bordered w-full">
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Birthplace of Bride</label>
-                            <input type="text" name="birthplace_bride" placeholder="Birthplace of Bride"
-                                class="input input-bordered w-full">
-                        </div>
-                    </div>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Citizenship of Bride</label>
-                            <input type="text" name="citizenship_bride" placeholder="Citizenship of Bride"
-                                class="input input-bordered w-full">
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Religion of Bride</label>
-                            <input type="text" name="religion_bride" placeholder="Religion of Bride"
-                                class="input input-bordered w-full">
-                        </div>
-                    </div>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Residence of Bride</label>
-                            <input type="text" name="residence_bride" placeholder="Residence of Bride"
-                                class="input input-bordered w-full">
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Civil Status of Bride</label>
-                            <input type="text" name="civil_status_bride" placeholder="Civil Status of Bride"
-                                class="input input-bordered w-full">
-                        </div>
-                    </div>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Father of Bride</label>
-                            <input type="text" name="name_of_father_bride" placeholder="Name of Father of Bride"
-                                class="input input-bordered w-full">
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Mother of Bride</label>
-                            <input type="text" name="name_of_mother_bride" placeholder="Name of Mother of Bride"
-                                class="input input-bordered w-full">
-                        </div>
-                    </div>
-                    <h3 class="text-md font-bold mb-4">Groom Information</h3>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Groom</label>
-                            <input type="text" name="name_of_groom" placeholder="Name of Groom"
-                                class="input input-bordered w-full">
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Birthdate of Groom</label>
-                            <input type="date" id="birthdate_groom" name="birthdate_groom"
-                                placeholder="Birthdate of Groom" class="input input-bordered w-full">
-                        </div>
-                    </div>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Age of Groom</label>
-                            <input type="text" id="age_groom" name="age_groom" placeholder="Age of Groom"
-                                class="input input-bordered w-full">
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Birthplace of Groom</label>
-                            <input type="text" name="birthplace_groom" placeholder="Birthplace of Groom"
-                                class="input input-bordered w-full">
-                        </div>
-                    </div>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Citizenship of Groom</label>
-                            <input type="text" name="citizenship_groom" placeholder="Citizenship of Groom"
-                                class="input input-bordered w-full">
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Religion of Groom</label>
-                            <input type="text" name="religion_groom" placeholder="Religion of Groom"
-                                class="input input-bordered w-full">
-                        </div>
-                    </div>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Residence of Groom</label>
-                            <input type="text" name="residence_groom" placeholder="Residence of Groom"
-                                class="input input-bordered w-full">
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Civil Status of Groom</label>
-                            <input type="text" name="civil_status_groom" placeholder="Civil Status of Groom"
-                                class="input input-bordered w-full">
-                        </div>
-                    </div>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Father of Groom</label>
-                            <input type="text" name="name_of_father_groom" placeholder="Name of Father of Groom"
-                                class="input input-bordered w-full">
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Mother of Groom</label>
-                            <input type="text" name="name_of_mother_groom" placeholder="Name of Mother of Groom"
-                                class="input input-bordered w-full">
-                        </div>
-                    </div>
-                </div>
-
-                <div id="death" class="hidden">
-                    <h2 class="text-lg font-bold mb-4">Death Certificate Details</h2>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">First Name of Deceased</label>
-                            <input type="text" name="first_name_death" placeholder="First Name"
-                                class="input input-bordered w-full">
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Middle Name of Deceased</label>
-                            <input type="text" name="middle_name_death" placeholder="Middle Name"
-                                class="input input-bordered w-full">
-                        </div>
-                    </div>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Last Name of Deceased</label>
-                            <input type="text" name="last_name_death" placeholder="Last Name"
-                                class="input input-bordered w-full">
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Date of Birth of Deceased</label>
-                            <input type="date" name="date_of_birth_death" placeholder="Date of Birth"
-                                class="input input-bordered w-full">
-                        </div>
-                    </div>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Date of Death of Deceased</label>
-                            <input type="date" name="date_of_death" placeholder="Date of Death"
-                                class="input input-bordered w-full">
-                        </div>
-                    </div>
-                    <p class="text-gray-500 text-sm italic">Note: Please attach the death certificate of the
-                        deceased.
-                    </p>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-medium">File</label>
-                        <input type="file" name="file_death" class="input input-bordered w-full">
-                    </div>
-                </div>
-
-                <div id="confirmation" class="hidden">
-                    <h2 class="text-lg font-bold mb-4">Confirmation Certificate Details</h2>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">First Name</label>
-                            <input type="text" name="confirmation_first_name" placeholder="First Name"
-                                class="input input-bordered w-full">
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Middle Name</label>
-                            <input type="text" name="confirmation_middle_name" placeholder="Middle Name"
-                                class="input input-bordered w-full">
-                        </div>
-                    </div>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Last Name</label>
-                            <input type="text" name="confirmation_last_name" placeholder="Last Name"
-                                class="input input-bordered w-full">
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Place of Birth</label>
-                            <input type="text" name="confirmation_place_of_birth" placeholder="Place of Birth"
-                                class="input input-bordered w-full">
-                        </div>
-                    </div>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Date of Baptism</label>
-                            <input type="date" name="confirmation_date_of_baptism" placeholder="Date of Baptism"
-                                class="input input-bordered w-full">
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Fathers Name</label>
-                            <input type="text" name="confirmation_fathers_name" placeholder="Fathers Name"
-                                class="input input-bordered w-full">
-                        </div>
-                    </div>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Mothers Name</label>
-                            <input type="text" name="confirmation_mothers_name" placeholder="Mothers Name"
-                                class="input input-bordered w-full">
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Date of Confirmation</label>
-                            <input type="date" name="confirmation_date_of_confirmation"
-                                placeholder="Date of Confirmation" class="input input-bordered w-full">
-                        </div>
-                    </div>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Confirmation Sponsors Name</label>
-                            <input type="text" name="confirmation_sponsors_name"
-                                placeholder="Confirmation Sponsors Name" class="input input-bordered w-full">
-                        </div>
-                    </div>
-                </div>
-                <hr class="my-4">
-
-                <div class="flex justify-end">
-                    <button class="btn text-black hover:bg-red-700 hover:text-white mr-2" type="button"
-                        onclick="document.getElementById('addModal').close()">Close</button>
-                    <button class="btn bg-blue-700 hover:bg-blue-800 text-white" type="submit">Submit
-                        Request</button>
-                </div>
-
-            </form>
-        </div>
-    </dialog>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        const popup = document.getElementById('gcash-popup');
-        const transactionContainer = document.getElementById('transaction-id-container');
-
-        function togglePopup(show) {
-            if (show) {
-                console.log('show');
-                popup.classList.remove('hidden');
-                popup.classList.add('flex');
-                transactionContainer.classList.remove('hidden');
-            } else {
-                popup.classList.add('hidden');
-                popup.classList.remove('flex');
-                transactionContainer.classList.add('hidden');
-            }
-        }
-
-        function closePopup() {
-            popup.classList.add('hidden');
-            popup.classList.remove('flex');
-        }
-
-        function closePayment() {
-
-            popup.classList.add('hidden');
-            popup.classList.remove('flex');
-            transactionContainer.classList.add('hidden');
-        }
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('#document_type').change(function() {
-                const baptism = $('#baptism');
-                const marriage = $('#marriage');
-                const death = $('#death');
-                const confirmation = $('#confirmation');
-
-                if ($(this).val() === 'Baptismal Certificate') {
-                    baptism.removeClass('hidden');
-                    marriage.addClass('hidden');
-                    death.addClass('hidden');
-                    confirmation.addClass('hidden');
-                    $('input[required]').attr('required', true);
-                } else if ($(this).val() === 'Marriage Certificate') {
-                    marriage.removeClass('hidden');
-                    baptism.addClass('hidden');
-                    death.addClass('hidden');
-                    confirmation.addClass('hidden');
-                    $('input[required]').attr('required', true);
-                } else if ($(this).val() === 'Death Certificate') {
-                    death.removeClass('hidden');
-                    marriage.addClass('hidden');
-                    baptism.addClass('hidden');
-                    confirmation.addClass('hidden');
-                    $('input[required]').removeAttr('required');
-                } else if ($(this).val() === 'Confirmation Certificate') {
-                    confirmation.removeClass('hidden');
-                    marriage.addClass('hidden');
-                    baptism.addClass('hidden');
-                    death.addClass('hidden');
-                    $('input[required]').removeAttr('required');
-                }
-            });
-
-            function calculateAge(birthdateInput, ageInput) {
-                var birthdate = new Date($(birthdateInput).val());
-                var today = new Date();
-                var age = today.getFullYear() - birthdate.getFullYear();
-                var monthDifference = today.getMonth() - birthdate.getMonth();
-
-                if (monthDifference < 0) {
-                    age--;
-                } else if (monthDifference === 0) {
-                    var dayDifference = today.getDate() - birthdate.getDate();
-                    if (dayDifference < 0) {
-                        age--;
-                    }
-                }
-
-                $(ageInput).val(age);
-            }
-
-            $('#birthdate_bride').change(function() {
-                calculateAge('#birthdate_bride', '#age_bride');
-            });
-
-            $('#birthdate_groom').change(function() {
-                calculateAge('#birthdate_groom', '#age_groom');
-            });
-
-            $('select[name="payment_method"]').change(function() {
-                if ($(this).val() === 'GCash') {
-                    $('#GCashQR').show();
-                } else {
-                    $('#GCashQR').hide();
-                }
-            });
-
-            $('select[name="payment_method"]').change(function() {
-                if ($(this).val() === 'Cash') {
-                    $('#WalkInQR').show();
-                    $('label[for="transaction_id"]').hide();
-                    $('input[name="transaction_id"]').hide();
-                } else {
-                    $('#WalkInQR').hide();
-                    $('label[for="transaction_id"]').show();
-                    $('input[name="transaction_id"]').show();
-                }
-            });
-        });
-    </script>
 
 </x-app-layout>

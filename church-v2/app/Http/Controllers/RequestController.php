@@ -153,6 +153,12 @@ class RequestController extends Controller
         return redirect()->back()->with([
             'error_code' => $result['error_code'],
             'message' => $result['message'],
-        ]); 
+        ]);
+    }
+
+    public function showDeletedRequests()
+    {
+        $deletedCount = Request::where('isDeleted', 1)->count();
+        return view('profile', compact('deletedCount'));
     }
 }

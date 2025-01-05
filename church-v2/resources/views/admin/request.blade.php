@@ -59,7 +59,8 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach ($requests as $request)
-                                    <tr class="cursor-pointer" onclick="viewModal{{ $request->id }}.showModal()">
+                                    <tr class="cursor-pointer hover:bg-gray-100"
+                                        onclick="viewModal{{ $request->id }}.showModal()">
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $request->document_type }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $request->user->name }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $request->status }}</td>
@@ -67,13 +68,13 @@
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             {{ strlen($request->notes) > 1 ? substr($request->notes, 0, 1) . '...' : $request->notes }}
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
+                                        <td class="px-6 py-6 whitespace-nowrap">
                                             {{ strlen($request->created_at) > 5 ? substr($request->created_at, 0, 5) . '...' : $request->created_at }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <button class="btn bg-green-700 hover:bg-green-800 text-white"
                                                 onclick="event.stopPropagation(); approvalModal{{ $request->id }}.showModal()">
-                                                Edit
+                                                Change Status
                                             </button>
                                             <button class="btn bg-red-700 hover:bg-red-800 text-white"
                                                 onclick="event.stopPropagation(); destroyModal{{ $request->id }}.showModal()">
@@ -140,12 +141,6 @@
                                                     <textarea name="notes"
                                                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-3 transition duration-150 ease-in-out">{{ $request->notes }}</textarea>
                                                 </div>
-                                                @if ($request->payment->payment_method == 'Cash')
-                                                    <hr class="my-4">
-                                                    <label class="block text-gray-700 font-medium">Notes</label>
-                                                    <textarea name="notes"
-                                                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-3 transition duration-150 ease-in-out">{{ $request->notes }}</textarea>
-                                                @endif
                                                 <hr class="my-4">
                                                 <div class="flex justify-end">
                                                     <button class="btn text-black hover:bg-red-700 hover:text-white"
@@ -718,15 +713,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            @if ($request->payment->payment_method == 'Walk-in')
-                                                <div class="mt-4 w-full">
-                                                    <label for="message"
-                                                        class="block text-sm/6 font-medium text-gray-900">Message</label>
-                                                    <div class="mt-2">
-                                                        <textarea name="message" class="textarea textarea-bordered w-full max-w-xs" readonly>{{ $request->notes ?? '' }}</textarea>
-                                                    </div>
-                                                </div>
-                                            @endif
                                             <hr class="my-4">
                                             <div class="flex justify-end">
                                                 <button class="btn text-black hover:bg-red-700 hover:text-white"

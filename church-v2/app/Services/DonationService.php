@@ -36,6 +36,7 @@ class DonationService
                 'donor_name' => $request->donor_name,
                 'donor_email' => $request->donor_email,
                 'donor_phone' => $request->donor_phone,
+                'donation_date' => $request->donation_date,
                 'amount' => $request->amount,
                 'note' => $request->note,
                 'transaction_id' => $request->transaction_id,

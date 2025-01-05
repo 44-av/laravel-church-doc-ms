@@ -19,6 +19,16 @@
                         </div>
                     @endif
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <!-- Donation Requests Card -->
+                        <a href="{{ route('show_donations') }}"
+                            class="card bg-blue-100 hover:bg-blue-200 transition duration-200 w-full">
+                            <div class="card-body">
+                                <h2 class="card-title text-black">Total Donation as of This Month</h2>
+                                <p id="donation-total" class="text-2xl font-bold">
+                                    {{ number_format($monthlyTotal, 2) }}
+                                </p>
+                            </div>
+                        </a>
                         <!-- Approved Requests Card -->
                         <a href="{{ route('approval_request', ['status' => 'Approved']) }}"
                             class="card bg-blue-100 shadow-xl hover:bg-blue-200 transition duration-200">
