@@ -22,6 +22,16 @@ class ParishionerController extends Controller
         $approved = $requests->where('status', 'Approved')->count();
         $declined = $requests->where('status', 'Decline')->count();
 
-        return view('parishioner.dashboard', compact('documents', 'donations', 'mails', 'priests', 'requests', 'pending', 'approved', 'declined'));
-    }
+        // Calculate the monthly total donation amount
+        $monthlyTotal = Donation::whereMonth('created_at', now()->month)
+                                 ->whereYear('created_at', now()->year)
+                                 ->sum('amount'); // Ensure 'amount' is the correct column name for donations
+
+      // Pass all the necessary data to the view
+      return view('parishioner.dashboard', compact(
+        'documents', 'donations', 'mails', 'priests', 'requests', 
+        'pending', 'approved', 'declined', 'monthlyTotal' // Pass $monthlyTotal to the view
+    ));
+}
+
 }

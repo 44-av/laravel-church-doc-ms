@@ -23,7 +23,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('status');
             $table->string('is_paid');
-            $table->string('is_deleted');
+            $table->boolean('is_deleted')->default(false); // Changed to boolean with a default value of false
             $table->text('notes')->nullable();
             $table->string('file')->nullable();
             $table->timestamps();

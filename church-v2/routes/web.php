@@ -17,28 +17,28 @@ use App\Http\Controllers\RequestController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+// Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
 
+// Dashboard Redirect Based on Role
 Route::get('/dashboard', function () {
     if (Auth::check()) {
-        if (Auth::user()->role == 'Admin') {
-            return redirect()->route('admin_dashboard');
-        } else {
-            return redirect()->route('parishioner_dashboard');
-        }
+        return Auth::user()->role === 'Admin'
+            ? redirect()->route('admin_dashboard')
+            : redirect()->route('parishioner_dashboard');
     }
-
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// Authenticated Routes
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
+// Admin Routes
 Route::middleware('Admin')->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin_dashboard');
     Route::get('/admin/documents', [DocumentController::class, 'index'])->name('documents');
@@ -48,7 +48,8 @@ Route::middleware('Admin')->group(function () {
     Route::get('/admin/approval_request', [RequestController::class, 'approval_request'])->name('approval_request');
     Route::get('/admin/payment', [PaymentController::class, 'index'])->name('payment');
     Route::get('/admin/announcement', [AnnouncementController::class, 'index'])->name('announcement');
-    Route::get('/admin/dashboard', [DonationController::class, 'showDonations'])->name('show_donations');
+    Route::get('/admin/donation/show', [DonationController::class, 'showDonations'])->name('show_donations');
+
 
     Route::post('/admin/priest', [PriestController::class, 'store'])->name('priest.store');
     Route::post('/admin/mail', [MailController::class, 'store'])->name('mail.store');
@@ -72,13 +73,12 @@ Route::middleware('Admin')->group(function () {
     Route::delete('/admin/approval_request/{id}', [RequestController::class, 'destroy'])->name('approval_request.destroy');
 });
 
+// Parishioner Routes
 Route::middleware('Parishioner')->group(function () {
     Route::get('/parishioner/dashboard', [ParishionerController::class, 'index'])->name('parishioner_dashboard');
     Route::get('/parishioner/request', [RequestController::class, 'index'])->name('request');
     Route::get('/parishioner/donations', [DonationController::class, 'parishionerIndex'])->name('parishioner_donation');
     Route::get('/parishioner/deleted_requests', [DeletedRequestsController::class, 'show'])->name('deleted_requests');
-    Route::get('/profile', [RequestController::class, 'showDeletedRequests']);
-    Route::get('/parishioner/dashboard', [DonationController::class, 'showDonations'])->name('show_donations');
 
     Route::post('/parishioner/request', [RequestController::class, 'store'])->name('request.store');
     Route::post('/parishioner/donations', [DonationController::class, 'store'])->name('donation.store');
@@ -89,4 +89,5 @@ Route::middleware('Parishioner')->group(function () {
     Route::delete('/parishioner/request/{id}', [RequestController::class, 'destroy'])->name('request.destroy');
 });
 
+// Authentication Routes
 require __DIR__ . '/auth.php';

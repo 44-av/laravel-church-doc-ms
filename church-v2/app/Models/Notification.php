@@ -11,8 +11,9 @@ class Notification extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'user id',
         'type',
         'message',
-        'is_read',
+        'read_at',
     ];
 }
