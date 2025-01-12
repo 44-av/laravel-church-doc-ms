@@ -222,7 +222,7 @@
                                                     type="submit"
                                                     disabled>
                                                     Complete Payment
-                                                </button> 
+                                                </button>
                                             </div>
                                         </form>
                                     </div>
@@ -756,9 +756,9 @@
         </div>
     </div>
 
-    
- <!-- Add Document Modal -->
- <dialog id="addModal" class="modal">
+
+    <!-- Add Document Modal -->
+    <dialog id="addModal" class="modal">
         <div class="modal-box rounded-lg shadow-lg w-11/12 max-w-3xl">
             <div class="flex items-center">
                 <button class="btn text-black hover:bg-green-700 hover:text-white me-2" type="button"
@@ -1108,7 +1108,7 @@
             </form>
         </div>
     </dialog>
-    
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         const popup = document.getElementById('gcash-popup');
@@ -1224,7 +1224,10 @@
     <script>
         function updateTotal() {
             const numberOfCopies = parseInt(document.getElementById('number-copies').value.replace(/[^0-9]/g, '')) || 0;
+            console.log("Number of Copies:", numberOfCopies); // Debugging line
+
             const totalAmount = 100 * numberOfCopies;
+            console.log("Total Amount:", totalAmount); // Debugging line
 
             document.getElementById('total-amount').textContent = totalAmount.toFixed(2);
         }
