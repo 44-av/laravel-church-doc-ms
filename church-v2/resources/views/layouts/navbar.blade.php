@@ -120,18 +120,19 @@
                 </div>
                 <i class='bx bx-chevron-down ms-1 text-lg'></i>
             </button>
-            <ul class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-48">
+            <ul class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-full">
                 <li>
                     <a href="{{ route('profile.edit') }}"
                         class="block w-full text-left text-sm text-gray-700">{{ __('Profile') }}</a>
                 </li>
-                <li>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="block w-full text-left text-sm text-gray-700">
-                            {{ __('Log Out') }}
-                        </button>
-                    </form>
+                <li >
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
+           class="block w-full text-left text-sm text-gray-700">
+            {{ __('Log Out') }}
+        </a>
+        <form id="logout-form" method="POST" action="{{ route('logout') }}" class="hidden">
+            @csrf
+        </form>
                 </li>
             </ul>
         </div>

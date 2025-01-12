@@ -45,7 +45,7 @@
             </ul>
         </div>
     </div>
-
+<!-- Landing Page -->
     <div class="hero bg-base-200 min-h-screen flex items-center justify-center"
         style="background-image: url('{{ asset('assets/img/church.jpg') }}'); background-size: cover;">
         <div class="hero-content text-center bg-white bg-opacity-80 p-8 rounded-lg shadow-lg m-3">
@@ -88,7 +88,8 @@
             </div>
         </div>
     </div>
-
+<!-- History Contents -->
+ <section id="donate" class="height[100vh]">
     <div class="container mx-auto px-4 py-12">
         <div class="hero min-h-screen flex flex-col items-center">
             <img src="{{ asset('assets/img/church2.jpg') }}" class="w-full max-w-3xl rounded-lg shadow-2xl mb-8" />
@@ -125,7 +126,7 @@
                     apertures, and capped with a multi-gabled roof.
                 </p>
             </div>
-            <div class="flex items-center justify-center bg-[#467292] p-4 rounded-lg shadow-md w-2/4 mx-auto">
+            <div class="flex items-center justify-center bg-[#467292] p-4 rounded-lg shadow-md w-2/4 mx-auto" id="donate">
                 <img src="{{ asset('assets/img/logo.png') }}" class="w-24 h-24 rounded-full mr-2" />
                 <p class="text-white text-lg leading-relaxed">
                     St. Michael the Archangel Parish Church
@@ -137,7 +138,9 @@
             </div>
         </div>
     </div>
+ </section>
 
+<!-- Services -->
     <section class="bg-white p-8 rounded-lg shadow-md mt-8 pt-20" id="services">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             <div class="card-body p-0">
@@ -187,7 +190,7 @@
             </div>
         </div>
     </section>
-
+<!-- Events -->
     <section class="bg-white p-8 rounded-lg shadow-md mt-8 pt-20" id="events">
         <h2 class="text-2xl font-semibold mb-4 text-gray-800">Events</h2>
         <div class="flex flex-wrap gap-6">
@@ -244,8 +247,8 @@
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </section>
-
-    <footer class="footer bg-base-200 text-base-content p-10">
+<!-- Footers -->
+    <footer class="footer bg-base-200 text-base-content p-10" id="contact-us">
         <nav>
             <h6 class="footer-title">Contact</h6>
             <p>Phone: 0968 - 721 - 8162</p>

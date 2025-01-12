@@ -26,10 +26,11 @@
             <div class="hidden lg:block">
                 @include('layouts.sidebar')
             </div>
-
             <main class="w-full">
+            <div class="sticky top-0 z-50 bg-white shadow-md">
+                <x-navbar />
+            </div>
                 <div class="flex-grow p-4">
-                    <x-navbar />
                     {{ $slot }}
                 </div>
             </main>
