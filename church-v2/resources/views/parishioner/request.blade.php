@@ -756,8 +756,9 @@
         </div>
     </div>
 
-    <!-- Add Document Modal -->
-    <dialog id="addModal" class="modal">
+    
+ <!-- Add Document Modal -->
+ <dialog id="addModal" class="modal">
         <div class="modal-box rounded-lg shadow-lg w-11/12 max-w-3xl">
             <div class="flex items-center">
                 <button class="btn text-black hover:bg-green-700 hover:text-white me-2" type="button"
@@ -815,9 +816,9 @@
                     </li>
                 </ol>
 
-                <!-- Document Type Options -->
+
                 <div class="mb-4">
-                    <label class="block text-gray-700 font-medium">Document Type: </label>
+                    <label class="block text-gray-700 font-medium">Document Type</label>
                     <select name="document_type" id="document_type"
                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-3 transition duration-150 ease-in-out"
                         required>
@@ -829,280 +830,274 @@
                     </select>
                 </div>
                 <hr class="my-4">
-                <!-- Baptismal Cert -->
                 <div id="baptism" class="hidden">
                     <h2 class="text-lg font-bold mb-4">Baptismal Certificate Details</h2>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Child: </label>
-                            <input type="text" name="name_of_child" placeholder="Name of Child" required
+                            <label class="block text-gray-700 font-medium">Name of Child</label>
+                            <input type="text" name="name_of_child" placeholder="Name of Child"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Date of Birth: </label>
-                            <input type="date" name="date_of_birth" placeholder="Date of Birth" required
+                            <label class="block text-gray-700 font-medium">Date of Birth</label>
+                            <input type="date" name="date_of_birth" placeholder="Date of Birth"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Place of Birth: </label>
-                            <input type="text" name="place_of_birth" placeholder="Place of Birth" required
+                            <label class="block text-gray-700 font-medium">Place of Birth</label>
+                            <input type="text" name="place_of_birth" placeholder="Place of Birth"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Date of Baptism: </label>
-                            <input type="date" name="baptism_schedule" placeholder="Date of Baptism" required
+                            <label class="block text-gray-700 font-medium">Date of Baptism</label>
+                            <input type="date" name="baptism_schedule" placeholder="Date of Baptism"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Father: </label>
-                            <input type="text" name="name_of_father" placeholder="Name of Father" required
+                            <label class="block text-gray-700 font-medium">Name of Father</label>
+                            <input type="text" name="name_of_father" placeholder="Name of Father"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Mother: </label>
-                            <input type="text" name="name_of_mother" placeholder="Name of Mother" required
+                            <label class="block text-gray-700 font-medium">Name of Mother</label>
+                            <input type="text" name="name_of_mother" placeholder="Name of Mother"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
-
                 </div>
-                <!-- Mirrage Cert -->
+
                 <div id="marriage" class="hidden">
                     <h2 class="text-lg font-bold mb-4">Marriage Certificate Details</h2>
-                    <h3 class="text-md font-bold mb-4">Bride Information: </h3>
+                    <h3 class="text-md font-bold mb-4">Bride Information</h3>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Bride Name: </label>
-                            <input type="text" name="bride_name" placeholder="Bride Name" required
+                            <label class="block text-gray-700 font-medium">Bride Name</label>
+                            <input type="text" name="bride_name" placeholder="Bride Name"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Birthdate of Bride: </label>
-                            <input type="date" id="birthdate_bride" name="birthdate_bride" required
+                            <label class="block text-gray-700 font-medium">Birthdate of Bride</label>
+                            <input type="date" id="birthdate_bride" name="birthdate_bride"
                                 placeholder="Birthdate of Bride" class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Age of Bride: </label>
-                            <input type="text" id="age_bride" name="age_bride" placeholder="Age of Bride" required
+                            <label class="block text-gray-700 font-medium">Age of Bride</label>
+                            <input type="text" id="age_bride" name="age_bride" placeholder="Age of Bride"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Birthplace of Bride: </label>
-                            <input type="text" name="birthplace_bride" placeholder="Birthplace of Bride" required
-                                class="input input-bordered w-full">
-                        </div>
-                    </div>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Citizenship of Bride: </label>
-                            <input type="text" name="citizenship_bride" placeholder="Citizenship of Bride" required
-                                class="input input-bordered w-full">
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Religion of Bride: </label>
-                            <input type="text" name="religion_bride" placeholder="Religion of Bride" required
+                            <label class="block text-gray-700 font-medium">Birthplace of Bride</label>
+                            <input type="text" name="birthplace_bride" placeholder="Birthplace of Bride"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Residence of Bride: </label>
-                            <input type="text" name="residence_bride" placeholder="Residence of Bride" required
+                            <label class="block text-gray-700 font-medium">Citizenship of Bride</label>
+                            <input type="text" name="citizenship_bride" placeholder="Citizenship of Bride"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Civil Status of Bride: </label>
-                            <input type="text" name="civil_status_bride" placeholder="Civil Status of Bride" required
+                            <label class="block text-gray-700 font-medium">Religion of Bride</label>
+                            <input type="text" name="religion_bride" placeholder="Religion of Bride"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Father of Bride: </label>
-                            <input type="text" name="name_of_father_bride" placeholder="Name of Father of Bride" required
+                            <label class="block text-gray-700 font-medium">Residence of Bride</label>
+                            <input type="text" name="residence_bride" placeholder="Residence of Bride"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Mother of Bride: </label>
-                            <input type="text" name="name_of_mother_bride" placeholder="Name of Mother of Bride" required
+                            <label class="block text-gray-700 font-medium">Civil Status of Bride</label>
+                            <input type="text" name="civil_status_bride" placeholder="Civil Status of Bride"
+                                class="input input-bordered w-full">
+                        </div>
+                    </div>
+                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                        <div class="sm:col-span-3">
+                            <label class="block text-gray-700 font-medium">Name of Father of Bride</label>
+                            <input type="text" name="name_of_father_bride" placeholder="Name of Father of Bride"
+                                class="input input-bordered w-full">
+                        </div>
+                        <div class="sm:col-span-3">
+                            <label class="block text-gray-700 font-medium">Name of Mother of Bride</label>
+                            <input type="text" name="name_of_mother_bride" placeholder="Name of Mother of Bride"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <h3 class="text-md font-bold mb-4">Groom Information</h3>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Groom: </label>
-                            <input type="text" name="name_of_groom" placeholder="Name of Groom" required
+                            <label class="block text-gray-700 font-medium">Name of Groom</label>
+                            <input type="text" name="name_of_groom" placeholder="Name of Groom"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Birthdate of Groom: </label>
-                            <input type="date" id="birthdate_groom" name="birthdate_groom" required
+                            <label class="block text-gray-700 font-medium">Birthdate of Groom</label>
+                            <input type="date" id="birthdate_groom" name="birthdate_groom"
                                 placeholder="Birthdate of Groom" class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Age of Groom: </label>
-                            <input type="text" id="age_groom" name="age_groom" placeholder="Age of Groom" required
+                            <label class="block text-gray-700 font-medium">Age of Groom</label>
+                            <input type="text" id="age_groom" name="age_groom" placeholder="Age of Groom"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Birthplace of Groom: </label>
-                            <input type="text" name="birthplace_groom" placeholder="Birthplace of Groom" required
+                            <label class="block text-gray-700 font-medium">Birthplace of Groom</label>
+                            <input type="text" name="birthplace_groom" placeholder="Birthplace of Groom"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Citizenship of Groom: </label>
-                            <input type="text" name="citizenship_groom" placeholder="Citizenship of Groom" required
+                            <label class="block text-gray-700 font-medium">Citizenship of Groom</label>
+                            <input type="text" name="citizenship_groom" placeholder="Citizenship of Groom"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Religion of Groom: </label>
-                            <input type="text" name="religion_groom" placeholder="Religion of Groom" required
+                            <label class="block text-gray-700 font-medium">Religion of Groom</label>
+                            <input type="text" name="religion_groom" placeholder="Religion of Groom"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Residence of Groom: </label>
-                            <input type="text" name="residence_groom" placeholder="Residence of Groom" required
+                            <label class="block text-gray-700 font-medium">Residence of Groom</label>
+                            <input type="text" name="residence_groom" placeholder="Residence of Groom"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Civil Status of Groom: </label>
-                            <input type="text" name="civil_status_groom" placeholder="Civil Status of Groom" required
+                            <label class="block text-gray-700 font-medium">Civil Status of Groom</label>
+                            <input type="text" name="civil_status_groom" placeholder="Civil Status of Groom"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Father of Groom: </label>
-                            <input type="text" name="name_of_father_groom" placeholder="Name of Father of Groom" required
+                            <label class="block text-gray-700 font-medium">Name of Father of Groom</label>
+                            <input type="text" name="name_of_father_groom" placeholder="Name of Father of Groom"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Mother of Groom: </label>
-                            <input type="text" name="name_of_mother_groom" placeholder="Name of Mother of Groom" required
+                            <label class="block text-gray-700 font-medium">Name of Mother of Groom</label>
+                            <input type="text" name="name_of_mother_groom" placeholder="Name of Mother of Groom"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
-
-
                 </div>
-                <!-- Death Cert -->
+
                 <div id="death" class="hidden">
                     <h2 class="text-lg font-bold mb-4">Death Certificate Details</h2>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">First Name of Deceased: </label>
-                            <input type="text" name="first_name_death" placeholder="First Name" required
+                            <label class="block text-gray-700 font-medium">First Name of Deceased</label>
+                            <input type="text" name="first_name_death" placeholder="First Name"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Middle Name of Deceased: </label>
-                            <input type="text" name="middle_name_death" placeholder="Middle Name" required
+                            <label class="block text-gray-700 font-medium">Middle Name of Deceased</label>
+                            <input type="text" name="middle_name_death" placeholder="Middle Name"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Last Name of Deceased: </label>
-                            <input type="text" name="last_name_death" placeholder="Last Name" required
+                            <label class="block text-gray-700 font-medium">Last Name of Deceased</label>
+                            <input type="text" name="last_name_death" placeholder="Last Name"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Date of Birth: </label>
-                            <input type="date" name="date_of_birth_death" placeholder="Date of Birth" required
+                            <label class="block text-gray-700 font-medium">Date of Birth of Deceased</label>
+                            <input type="date" name="date_of_birth_death" placeholder="Date of Birth"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Date of Death: </label>
-                            <input type="date" name="date_of_death" placeholder="Date of Death" required
+                            <label class="block text-gray-700 font-medium">Date of Death of Deceased</label>
+                            <input type="date" name="date_of_death" placeholder="Date of Death"
                                 class="input input-bordered w-full">
                         </div>
-
                     </div>
                     <p class="text-gray-500 text-sm italic">Note: Please attach the death certificate of the
                         deceased.
                     </p>
                     <div class="mb-4">
                         <label class="block text-gray-700 font-medium">File</label>
-                        <input type="file" name="file_death" class="input input-bordered w-full" required>
+                        <input type="file" name="file_death" class="input input-bordered w-full">
                     </div>
                 </div>
-                <!-- Confirmation Cert -->
+
                 <div id="confirmation" class="hidden">
                     <h2 class="text-lg font-bold mb-4">Confirmation Certificate Details</h2>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">First Name: </label>
-                            <input type="text" name="confirmation_first_name" placeholder="First Name" required
+                            <label class="block text-gray-700 font-medium">First Name</label>
+                            <input type="text" name="confirmation_first_name" placeholder="First Name"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Middle Name: </label>
-                            <input type="text" name="confirmation_middle_name" placeholder="Middle Name" required
-                                class="input input-bordered w-full">
-                        </div>
-                    </div>
-                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Last Name: </label>
-                            <input type="text" name="confirmation_last_name" placeholder="Last Name" required
-                                class="input input-bordered w-full">
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Place of Birth: </label>
-                            <input type="text" name="confirmation_place_of_birth" placeholder="Place of Birth" required
+                            <label class="block text-gray-700 font-medium">Middle Name</label>
+                            <input type="text" name="confirmation_middle_name" placeholder="Middle Name"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Date of Baptism: </label>
-                            <input type="date" name="confirmation_date_of_baptism" placeholder="Date of Baptism" required
+                            <label class="block text-gray-700 font-medium">Last Name</label>
+                            <input type="text" name="confirmation_last_name" placeholder="Last Name"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Fathers Name: </label>
-                            <input type="text" name="confirmation_fathers_name" placeholder="Fathers Name" required
+                            <label class="block text-gray-700 font-medium">Place of Birth</label>
+                            <input type="text" name="confirmation_place_of_birth" placeholder="Place of Birth"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Mothers Name: </label>
-                            <input type="text" name="confirmation_mothers_name" placeholder="Mothers Name" required
+                            <label class="block text-gray-700 font-medium">Date of Baptism</label>
+                            <input type="date" name="confirmation_date_of_baptism" placeholder="Date of Baptism"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Date of Confirmation: </label>
-                            <input type="date" name="confirmation_date_of_confirmation" required
+                            <label class="block text-gray-700 font-medium">Fathers Name</label>
+                            <input type="text" name="confirmation_fathers_name" placeholder="Fathers Name"
+                                class="input input-bordered w-full">
+                        </div>
+                    </div>
+                    <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                        <div class="sm:col-span-3">
+                            <label class="block text-gray-700 font-medium">Mothers Name</label>
+                            <input type="text" name="confirmation_mothers_name" placeholder="Mothers Name"
+                                class="input input-bordered w-full">
+                        </div>
+                        <div class="sm:col-span-3">
+                            <label class="block text-gray-700 font-medium">Date of Confirmation</label>
+                            <input type="date" name="confirmation_date_of_confirmation"
                                 placeholder="Date of Confirmation" class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Confirmation Sponsors Name: </label>
-                            <input type="text" name="confirmation_sponsors_name" required
+                            <label class="block text-gray-700 font-medium">Confirmation Sponsors Name</label>
+                            <input type="text" name="confirmation_sponsors_name"
                                 placeholder="Confirmation Sponsors Name" class="input input-bordered w-full">
                         </div>
-
-
                     </div>
                 </div>
                 <hr class="my-4">
+
                 <div class="flex justify-end">
                     <button class="btn text-black hover:bg-red-700 hover:text-white mr-2" type="button"
                         onclick="document.getElementById('addModal').close()">Close</button>
@@ -1113,7 +1108,7 @@
             </form>
         </div>
     </dialog>
-
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         const popup = document.getElementById('gcash-popup');
