@@ -8,10 +8,16 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    public function showTable() {
-        $donations = Donation::all();  // Fetch all donations
-        $payments = Payment::all();    // Fetch all payments
-    
+    /**
+     * Show the table of transactions.
+     */
+    public function showTable()
+    {
+        // Fetch donations and payments
+        $donations = Donation::all(); // Fetch all donations
+        $payments = Payment::all(); // Fetch all donations
+
+        // Combine donations and payments into one collection
         $transactions = $donations->map(function ($donation) {
             return [
                 'full_name' => $donation->donor_name,
@@ -29,15 +35,46 @@ class TransactionController extends Controller
                 'transaction_id' => $payment->transaction_id,
             ];
         }));
-    
-        dd($transactions); // To ensure transactions data is available
+
+        // Debugging: Uncomment the line below if you want to inspect the data
+        // dd($transactions);
+
+        // Pass transactions to the view
         return view('admin.payment', ['transactions' => $transactions]);
     }
 
-    public function index() {
-        $donations = Donation::all();
-        $payments = Payment::all();
+    /**
+     * Display the index view of transactions.
+     */
+    public function index()
+    {
+        // Fetch donations and payments
+        $donations = Donation::all(); // Fetch all donations
+        $payments = Payment::all(); // Fetch all donations
 
-        return view('admin.payment', compact('donations', 'payments'));
+        // Combine donations and payments into one collection
+        $transactions = $donations->map(function ($donation) {
+            return [
+                'full_name' => $donation->donor_name,
+                'amount' => $donation->amount,
+                'date_time' => $donation->donation_date,
+                'transaction_type' => 'Donation',
+                'transaction_id' => $donation->transaction_id,
+            ];
+        })->merge($payments->map(function ($payment) {
+            return [
+                'full_name' => $payment->payer_name,
+                'amount' => $payment->amount,
+                'date_time' => $payment->payment_date,
+                'transaction_type' => 'Payment',
+                'transaction_id' => $payment->transaction_id,
+            ];
+        }));
+
+        // Debugging: Uncomment the line below if you want to inspect the data
+        // dd($transactions);
+
+        // Pass transactions to the view
+        return view('admin.payment', ['transactions' => $transactions]);
     }
 }
