@@ -3,17 +3,16 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\DeletedRequestsController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ParishionerController;
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PriestController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -46,7 +45,7 @@ Route::middleware('Admin')->group(function () {
     Route::get('/admin/mail', [MailController::class, 'index'])->name('mails');
     Route::get('/admin/donations', [DonationController::class, 'index'])->name('donations');
     Route::get('/admin/approval_request', [RequestController::class, 'approval_request'])->name('approval_request');
-    Route::get('/admin/payment', [PaymentController::class, 'index'])->name('payment');
+    Route::get('/admin/payment', [TransactionController::class, 'index'])->name('payment');
     Route::get('/admin/announcement', [AnnouncementController::class, 'index'])->name('announcement');
     Route::get('/admin/donation/show', [DonationController::class, 'showDonations'])->name('show_donations');
 
@@ -78,7 +77,6 @@ Route::middleware('Parishioner')->group(function () {
     Route::get('/parishioner/dashboard', [ParishionerController::class, 'index'])->name('parishioner_dashboard');
     Route::get('/parishioner/request', [RequestController::class, 'index'])->name('request');
     Route::get('/parishioner/donations', [DonationController::class, 'parishionerIndex'])->name('parishioner_donation');
-    Route::get('/parishioner/deleted_requests', [DeletedRequestsController::class, 'show'])->name('deleted_requests');
 
     Route::post('/parishioner/request', [RequestController::class, 'store'])->name('request.store');
     Route::post('/parishioner/donations', [DonationController::class, 'store'])->name('donation.store');

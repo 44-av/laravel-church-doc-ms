@@ -69,7 +69,7 @@
                         <a href="{{ route('payment') }}"
                             class="menu-link {{ request()->routeIs('payment') ? 'bg-[#6DC5E9] text-white' : 'text-white hover:text-white' }}">
                             <i class="menu-icon tf-icons bx bx-credit-card"></i>
-                            <div data-i18n="Payment">Payment</div>
+                            <div data-i18n="Payment">Transaction History</div>
                         </a>
                     </li>
 
