@@ -48,7 +48,7 @@
                                         Requested By</th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Date Requested</th>
+                                        Date & Time Requested</th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Approved by</th>
@@ -126,7 +126,7 @@
                                                         </dd>
                                                     </dl>
                                                 </div>
-                                                <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                                {{-- <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                                     <div class="sm:col-span-8">
                                                         <label for="payment_method"
                                                             class="block text-sm font-medium text-gray-900">
@@ -161,19 +161,18 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <!-- Transaction ID Field -->
                                                 <div id="transaction-id-container"
-                                                    class="mt-4 grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 hidden">
+                                                    class="mt-4 grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                                     <div class="sm:col-span-3">
                                                         <label for="transaction_id"
                                                             class="block text-sm font-medium text-gray-900">
-                                                            Transaction ID
+                                                            Transaction ID:
                                                         </label>
                                                         <div class="mt-2">
                                                             <input type="text" name="transaction_id"
-                                                                id="transaction_id"
-                                                                class="input input-bordered w-full"
+                                                                id="transaction_id" class="input input-bordered w-full"
                                                                 value="{{ $request->payment->transaction_id ?? '' }}">
                                                         </div>
                                                     </div>
@@ -224,11 +223,6 @@
                                         </div>
                                     </dialog>
 
-
-
-
-
-
                                     <!-- View Modal -->
                                     <dialog id="viewModal{{ $request->id }}" class="modal">
                                         <div class="modal-box rounded-lg shadow-lg w-11/12 max-w-5xl">
@@ -253,7 +247,7 @@
                                                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                                     <div class="sm:col-span-3">
                                                         <label class="input input-bordered flex items-center gap-2">
-                                                            Certificate Type
+                                                            Certificate Type:
                                                             <input type="text" name="certificate_type"
                                                                 class="grow border-none focus:ring-0 focus:border-none"
                                                                 value="{{ $request->certificate_detail->certificate_type }}"
@@ -262,7 +256,7 @@
                                                     </div>
                                                     <div class="sm:col-span-3">
                                                         <label class="input input-bordered flex items-center gap-2">
-                                                            Name of Child
+                                                            Name of Child:
                                                             <input type="text" name="name_of_child"
                                                                 class="grow border-none focus:ring-0 focus:border-none"
                                                                 value="{{ $request->certificate_detail->name_of_child }}"
@@ -273,7 +267,7 @@
                                                 <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                                     <div class="sm:col-span-3">
                                                         <label class="input input-bordered flex items-center gap-2">
-                                                            Date of Birth
+                                                            Date of Birth:
                                                             <input type="text" name="date_of_birth"
                                                                 class="grow border-none focus:ring-0 focus:border-none"
                                                                 value="{{ $request->certificate_detail->date_of_birth }}"
@@ -282,7 +276,7 @@
                                                     </div>
                                                     <div class="sm:col-span-3">
                                                         <label class="input input-bordered flex items-center gap-2">
-                                                            Place of Birth
+                                                            Place of Birth:
                                                             <input type="text" name="place_of_birth"
                                                                 class="grow border-none focus:ring-0 focus:border-none"
                                                                 value="{{ $request->certificate_detail->place_of_birth }}"
@@ -293,7 +287,7 @@
                                                 <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                                     <div class="sm:col-span-6">
                                                         <label class="input input-bordered flex items-center gap-2">
-                                                            Date of Baptism
+                                                            Date of Baptism:
                                                             <input type="text" name="baptism_schedule"
                                                                 class="grow border-none focus:ring-0 focus:border-none"
                                                                 value="{{ $request->certificate_detail->baptism_schedule }}"
@@ -304,7 +298,7 @@
                                                 <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                                     <div class="sm:col-span-3">
                                                         <label class="input input-bordered flex items-center gap-2">
-                                                            Name of Father
+                                                            Name of Father:
                                                             <input type="text" name="name_of_father"
                                                                 class="grow border-none focus:ring-0 focus:border-none"
                                                                 value="{{ $request->certificate_detail->name_of_father }}"
@@ -313,7 +307,7 @@
                                                     </div>
                                                     <div class="sm:col-span-3">
                                                         <label class="input input-bordered flex items-center gap-2">
-                                                            Name of Mother
+                                                            Name of Mother:
                                                             <input type="text" name="name_of_mother"
                                                                 class="grow border-none focus:ring-0 focus:border-none"
                                                                 value="{{ $request->certificate_detail->name_of_mother }}"
@@ -329,7 +323,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Bride Name
+                                                                Bride Name:
                                                                 <input type="text" name="bride_name"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->bride_name }}"
@@ -339,7 +333,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Birthdate of Bride
+                                                                Birthdate of Bride:
                                                                 <input type="text" name="birthdate_bride"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->birthdate_bride }}"
@@ -351,7 +345,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Age of Bride
+                                                                Age of Bride:
                                                                 <input type="text" name="age_bride"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->age_bride }}"
@@ -361,7 +355,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Birthplace of Bride
+                                                                Birthplace of Bride:
                                                                 <input type="text" name="birthplace_bride"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->birthplace_bride }}"
@@ -373,7 +367,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Citizenship of Bride
+                                                                Citizenship of Bride:
                                                                 <input type="text" name="citizenship_bride"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->citizenship_bride }}"
@@ -383,7 +377,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Religion of Bride
+                                                                Religion of Bride:
                                                                 <input type="text" name="religion_bride"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->religion_bride }}"
@@ -395,7 +389,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Residence of Bride
+                                                                Residence of Bride:
                                                                 <input type="text" name="residence_bride"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->residence_bride }}"
@@ -405,7 +399,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Civil Status of Bride
+                                                                Civil Status of Bride:
                                                                 <input type="text" name="civil_status_bride"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->civil_status_bride }}"
@@ -417,7 +411,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Name of Father of Bride
+                                                                Name of Father of Bride:
                                                                 <input type="text" name="name_of_father_bride"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->name_of_father_bride }}"
@@ -427,7 +421,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Name of Mother of Bride
+                                                                Name of Mother of Bride:
                                                                 <input type="text" name="name_of_mother_bride"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->name_of_mother_bride }}"
@@ -440,7 +434,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Name of Groom
+                                                                Name of Groom:
                                                                 <input type="text" name="name_of_groom"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->name_of_groom }}"
@@ -450,7 +444,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Birthdate of Groom
+                                                                Birthdate of Groom:
                                                                 <input type="text" name="birthdate_groom"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->birthdate_groom }}"
@@ -462,7 +456,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Age of Groom
+                                                                Age of Groom:
                                                                 <input type="text" name="age_groom"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->age_groom }}"
@@ -472,7 +466,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Birthplace of Groom
+                                                                Birthplace of Groom:
                                                                 <input type="text" name="birthplace_groom"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->birthplace_groom }}"
@@ -484,7 +478,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Citizenship of Groom
+                                                                Citizenship of Groom:
                                                                 <input type="text" name="citizenship_groom"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->citizenship_groom }}"
@@ -494,7 +488,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Religion of Groom
+                                                                Religion of Groom:
                                                                 <input type="text" name="religion_groom"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->religion_groom }}"
@@ -506,7 +500,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Residence of Groom
+                                                                Residence of Groom:
                                                                 <input type="text" name="residence_groom"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->residence_groom }}"
@@ -516,7 +510,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Civil Status of Groom
+                                                                Civil Status of Groom:
                                                                 <input type="text" name="civil_status_groom"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->civil_status_groom }}"
@@ -528,7 +522,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Name of Father of Groom
+                                                                Name of Father of Groom:
                                                                 <input type="text" name="name_of_father_groom"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->name_of_father_groom }}"
@@ -538,7 +532,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Name of Mother of Groom
+                                                                Name of Mother of Groom:
                                                                 <input type="text" name="name_of_mother_groom"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->name_of_mother_groom }}"
@@ -554,7 +548,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                First Name of Deceased
+                                                                First Name of Deceased:
                                                                 <input type="text" name="first_name_death"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->first_name_death ?? '' }}"
@@ -564,7 +558,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Middle Name of Deceased
+                                                                Middle Name of Deceased:
                                                                 <input type="text" name="middle_name_death"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->middle_name_death ?? '' }}"
@@ -576,7 +570,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Last Name of Deceased
+                                                                Last Name of Deceased:
                                                                 <input type="text" name="last_name_death"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->last_name_death ?? '' }}"
@@ -586,7 +580,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Date of Birth of Deceased
+                                                                Date of Birth of Deceased:
                                                                 <input type="text" name="date_of_birth_death"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->date_of_birth_death ?? '' }}"
@@ -598,7 +592,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Date of Death of Deceased
+                                                                Date of Death of Deceased:
                                                                 <input type="text" name="date_of_death_death"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->date_of_death ?? '' }}"
@@ -608,7 +602,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Minister of Deceased
+                                                                Minister of Deceased:
                                                                 <input type="text" name="minister_death"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->minister_death ?? '' }}"
@@ -620,7 +614,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                File of Deceased
+                                                                File of Deceased:
                                                                 <input type="text" name="file_death"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->file_death ?? '' }}"
@@ -636,7 +630,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                First Name
+                                                                First Name:
                                                                 <input type="text" name="confirmation_first_name"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->confirmation_first_name ?? '' }}"
@@ -646,7 +640,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Middle Name
+                                                                Middle Name:
                                                                 <input type="text" name="confirmation_middle_name"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->confirmation_middle_name ?? '' }}"
@@ -658,7 +652,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Last Name
+                                                                Last Name:
                                                                 <input type="text" name="confirmation_last_name"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->confirmation_last_name ?? '' }}"
@@ -668,7 +662,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Place of Birth
+                                                                Place of Birth:
                                                                 <input type="text"
                                                                     name="confirmation_place_of_birth"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
@@ -681,7 +675,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Date of Baptism
+                                                                Date of Baptism:
                                                                 <input type="date"
                                                                     name="confirmation_date_of_baptism"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
@@ -692,7 +686,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Fathers Name
+                                                                Fathers Name:
                                                                 <input type="text" name="confirmation_fathers_name"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->confirmation_fathers_name ?? '' }}"
@@ -704,7 +698,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Mothers Name
+                                                                Mothers Name:
                                                                 <input type="text" name="confirmation_mothers_name"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
                                                                     value="{{ $request->certificate_detail->confirmation_mothers_name ?? '' }}"
@@ -714,7 +708,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Date of Confirmation
+                                                                Date of Confirmation:
                                                                 <input type="date"
                                                                     name="confirmation_date_of_confirmation"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
@@ -727,7 +721,7 @@
                                                         <div class="sm:col-span-3">
                                                             <label
                                                                 class="input input-bordered flex items-center gap-2">
-                                                                Sponsors Name
+                                                                Sponsors Name:
                                                                 <input type="text"
                                                                     name="confirmation_sponsors_name"
                                                                     class="grow border-none focus:ring-0 focus:border-none"
@@ -815,7 +809,7 @@
 
 
                 <div class="mb-4">
-                    <label class="block text-gray-700 font-medium">Document Type</label>
+                    <label class="block text-gray-700 font-medium">Document Type: </label>
                     <select name="document_type" id="document_type"
                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-3 transition duration-150 ease-in-out"
                         required>
@@ -831,36 +825,36 @@
                     <h2 class="text-lg font-bold mb-4">Baptismal Certificate Details</h2>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Child</label>
+                            <label class="block text-gray-700 font-medium">Name of Child: </label>
                             <input type="text" name="name_of_child" placeholder="Name of Child"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Date of Birth</label>
+                            <label class="block text-gray-700 font-medium">Date of Birth: </label>
                             <input type="date" name="date_of_birth" placeholder="Date of Birth"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Place of Birth</label>
+                            <label class="block text-gray-700 font-medium">Place of Birth: </label>
                             <input type="text" name="place_of_birth" placeholder="Place of Birth"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Date of Baptism</label>
+                            <label class="block text-gray-700 font-medium">Date of Baptism: </label>
                             <input type="date" name="baptism_schedule" placeholder="Date of Baptism"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Father</label>
+                            <label class="block text-gray-700 font-medium">Name of Father: </label>
                             <input type="text" name="name_of_father" placeholder="Name of Father"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Mother</label>
+                            <label class="block text-gray-700 font-medium">Name of Mother: </label>
                             <input type="text" name="name_of_mother" placeholder="Name of Mother"
                                 class="input input-bordered w-full">
                         </div>
@@ -869,63 +863,63 @@
 
                 <div id="marriage" class="hidden">
                     <h2 class="text-lg font-bold mb-4">Marriage Certificate Details</h2>
-                    <h3 class="text-md font-bold mb-4">Bride Information</h3>
+                    <h3 class="text-md font-bold mb-4">Bride Information: </h3>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Bride Name</label>
+                            <label class="block text-gray-700 font-medium">Bride Name: </label>
                             <input type="text" name="bride_name" placeholder="Bride Name"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Birthdate of Bride</label>
+                            <label class="block text-gray-700 font-medium">Birthdate of Bride: </label>
                             <input type="date" id="birthdate_bride" name="birthdate_bride"
                                 placeholder="Birthdate of Bride" class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Age of Bride</label>
+                            <label class="block text-gray-700 font-medium">Age of Bride: </label>
                             <input type="text" id="age_bride" name="age_bride" placeholder="Age of Bride"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Birthplace of Bride</label>
+                            <label class="block text-gray-700 font-medium">Birthplace of Bride: </label>
                             <input type="text" name="birthplace_bride" placeholder="Birthplace of Bride"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Citizenship of Bride</label>
+                            <label class="block text-gray-700 font-medium">Citizenship of Bride: </label>
                             <input type="text" name="citizenship_bride" placeholder="Citizenship of Bride"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Religion of Bride</label>
+                            <label class="block text-gray-700 font-medium">Religion of Bride: </label>
                             <input type="text" name="religion_bride" placeholder="Religion of Bride"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Residence of Bride</label>
+                            <label class="block text-gray-700 font-medium">Residence of Bride: </label>
                             <input type="text" name="residence_bride" placeholder="Residence of Bride"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Civil Status of Bride</label>
+                            <label class="block text-gray-700 font-medium">Civil Status of Bride: </label>
                             <input type="text" name="civil_status_bride" placeholder="Civil Status of Bride"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Father of Bride</label>
+                            <label class="block text-gray-700 font-medium">Name of Father of Bride: </label>
                             <input type="text" name="name_of_father_bride" placeholder="Name of Father of Bride"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Mother of Bride</label>
+                            <label class="block text-gray-700 font-medium">Name of Mother of Bride: </label>
                             <input type="text" name="name_of_mother_bride" placeholder="Name of Mother of Bride"
                                 class="input input-bordered w-full">
                         </div>
@@ -933,60 +927,60 @@
                     <h3 class="text-md font-bold mb-4">Groom Information</h3>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Groom</label>
+                            <label class="block text-gray-700 font-medium">Name of Groom: </label>
                             <input type="text" name="name_of_groom" placeholder="Name of Groom"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Birthdate of Groom</label>
+                            <label class="block text-gray-700 font-medium">Birthdate of Groom: </label>
                             <input type="date" id="birthdate_groom" name="birthdate_groom"
                                 placeholder="Birthdate of Groom" class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Age of Groom</label>
+                            <label class="block text-gray-700 font-medium">Age of Groom: </label>
                             <input type="text" id="age_groom" name="age_groom" placeholder="Age of Groom"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Birthplace of Groom</label>
+                            <label class="block text-gray-700 font-medium">Birthplace of Groom: </label>
                             <input type="text" name="birthplace_groom" placeholder="Birthplace of Groom"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Citizenship of Groom</label>
+                            <label class="block text-gray-700 font-medium">Citizenship of Groom: </label>
                             <input type="text" name="citizenship_groom" placeholder="Citizenship of Groom"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Religion of Groom</label>
+                            <label class="block text-gray-700 font-medium">Religion of Groom: </label>
                             <input type="text" name="religion_groom" placeholder="Religion of Groom"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Residence of Groom</label>
+                            <label class="block text-gray-700 font-medium">Residence of Groom: </label>
                             <input type="text" name="residence_groom" placeholder="Residence of Groom"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Civil Status of Groom</label>
+                            <label class="block text-gray-700 font-medium">Civil Status of Groom: </label>
                             <input type="text" name="civil_status_groom" placeholder="Civil Status of Groom"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Father of Groom</label>
+                            <label class="block text-gray-700 font-medium">Name of Father of Groom: </label>
                             <input type="text" name="name_of_father_groom" placeholder="Name of Father of Groom"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Name of Mother of Groom</label>
+                            <label class="block text-gray-700 font-medium">Name of Mother of Groom: </label>
                             <input type="text" name="name_of_mother_groom" placeholder="Name of Mother of Groom"
                                 class="input input-bordered w-full">
                         </div>
@@ -997,31 +991,31 @@
                     <h2 class="text-lg font-bold mb-4">Death Certificate Details</h2>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">First Name of Deceased</label>
+                            <label class="block text-gray-700 font-medium">First Name of Deceased: </label>
                             <input type="text" name="first_name_death" placeholder="First Name"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Middle Name of Deceased</label>
+                            <label class="block text-gray-700 font-medium">Middle Name of Deceased: </label>
                             <input type="text" name="middle_name_death" placeholder="Middle Name"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Last Name of Deceased</label>
+                            <label class="block text-gray-700 font-medium">Last Name of Deceased: </label>
                             <input type="text" name="last_name_death" placeholder="Last Name"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Date of Birth of Deceased</label>
+                            <label class="block text-gray-700 font-medium">Date of Birth of Deceased: </label>
                             <input type="date" name="date_of_birth_death" placeholder="Date of Birth"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Date of Death of Deceased</label>
+                            <label class="block text-gray-700 font-medium">Date of Death of Deceased: </label>
                             <input type="date" name="date_of_death" placeholder="Date of Death"
                                 class="input input-bordered w-full">
                         </div>
@@ -1039,55 +1033,55 @@
                     <h2 class="text-lg font-bold mb-4">Confirmation Certificate Details</h2>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">First Name</label>
+                            <label class="block text-gray-700 font-medium">First Name: </label>
                             <input type="text" name="confirmation_first_name" placeholder="First Name"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Middle Name</label>
+                            <label class="block text-gray-700 font-medium">Middle Name: </label>
                             <input type="text" name="confirmation_middle_name" placeholder="Middle Name"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Last Name</label>
+                            <label class="block text-gray-700 font-medium">Last Name: </label>
                             <input type="text" name="confirmation_last_name" placeholder="Last Name"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Place of Birth</label>
+                            <label class="block text-gray-700 font-medium">Place of Birth: </label>
                             <input type="text" name="confirmation_place_of_birth" placeholder="Place of Birth"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Date of Baptism</label>
+                            <label class="block text-gray-700 font-medium">Date of Baptism: </label>
                             <input type="date" name="confirmation_date_of_baptism" placeholder="Date of Baptism"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Fathers Name</label>
+                            <label class="block text-gray-700 font-medium">Fathers Name: </label>
                             <input type="text" name="confirmation_fathers_name" placeholder="Fathers Name"
                                 class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Mothers Name</label>
+                            <label class="block text-gray-700 font-medium">Mothers Name: </label>
                             <input type="text" name="confirmation_mothers_name" placeholder="Mothers Name"
                                 class="input input-bordered w-full">
                         </div>
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Date of Confirmation</label>
+                            <label class="block text-gray-700 font-medium">Date of Confirmation: </label>
                             <input type="date" name="confirmation_date_of_confirmation"
                                 placeholder="Date of Confirmation" class="input input-bordered w-full">
                         </div>
                     </div>
                     <div class="mb-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label class="block text-gray-700 font-medium">Confirmation Sponsors Name</label>
+                            <label class="block text-gray-700 font-medium">Confirmation Sponsors Name: </label>
                             <input type="text" name="confirmation_sponsors_name"
                                 placeholder="Confirmation Sponsors Name" class="input input-bordered w-full">
                         </div>

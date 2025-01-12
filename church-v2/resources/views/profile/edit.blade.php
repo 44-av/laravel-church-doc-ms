@@ -14,13 +14,6 @@
             </div>
             <div class="p-4 bg-white shadow sm:rounded-lg mb-4">
                 <div class="max-w-xl">
-                    {{-- @include('profile.partials.delete-files-lists', ['deletedCount' => $deletedCount]) --}}
-                    @include('profile.partials.delete-files-lists')
-
-                </div>
-            </div>
-            <div class="p-4 bg-white shadow sm:rounded-lg mb-4">
-                <div class="max-w-xl">
                     @include('profile.partials.delete-user-form')
                 </div>
             </div>

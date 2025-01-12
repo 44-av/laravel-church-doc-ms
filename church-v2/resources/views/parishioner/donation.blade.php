@@ -37,7 +37,7 @@
                                         Amount</th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Date</th>
+                                        Date & Time</th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Status</th>
@@ -65,7 +65,7 @@
                                             <hr class="my-4">
                                             <div class="mb-4">
                                                 <label class="input input-bordered flex items-center gap-2">
-                                                    Full Name
+                                                    Full Name:
                                                     <input type="text" name="donor_name"
                                                         class="grow border-none focus:ring-0 focus:border-none"
                                                         value="{{ $donation->donor_name }}" readonly />
@@ -73,7 +73,7 @@
                                             </div>
                                             <div class="mb-4">
                                                 <label class="input input-bordered flex items-center gap-2">
-                                                    Email Address
+                                                    Email Address:
                                                     <input type="text" name="donor_email"
                                                         class="grow border-none focus:ring-0 focus:border-none"
                                                         value="{{ $donation->donor_email }}" readonly />
@@ -81,7 +81,7 @@
                                             </div>
                                             <div class="mb-4">
                                                 <label class="input input-bordered flex items-center gap-2">
-                                                    Phone Number
+                                                    Phone Number:
                                                     <input type="text" name="donor_phone"
                                                         class="grow border-none focus:ring-0 focus:border-none"
                                                         value="{{ $donation->donor_phone }}" readonly />
@@ -89,7 +89,7 @@
                                             </div>
                                             <div class="mb-4">
                                                 <label class="input input-bordered flex items-center gap-2">
-                                                    Amount
+                                                    Amount:
                                                     <input type="text" name="amount"
                                                         class="grow border-none focus:ring-0 focus:border-none"
                                                         value="{{ $donation->amount }}" readonly />
@@ -97,7 +97,7 @@
                                             </div>
                                             <div class="mb-4">
                                                 <label class="input input-bordered flex items-center gap-2">
-                                                    Date
+                                                    Date:
                                                     <input type="text" name="date"
                                                         class="grow border-none focus:ring-0 focus:border-none"
                                                         value="{{ $donation->donation_date }}" readonly />
@@ -105,7 +105,7 @@
                                             </div>
                                             <div class="mb-4">
                                                 <label class="input input-bordered flex items-center gap-2">
-                                                    Transaction ID
+                                                    Transaction ID:
                                                     <input type="text" name="transaction_id"
                                                         class="grow border-none focus:ring-0 focus:border-none"
                                                         value="{{ $donation->transaction_id }}" readonly />
@@ -113,7 +113,7 @@
                                             </div>
                                             <div class="mb-4">
                                                 <label class="input input-bordered flex items-center gap-2">
-                                                    Note
+                                                    Note:
                                                     <input type="text" name="note"
                                                         class="grow border-none focus:ring-0 focus:border-none"
                                                         value="{{ $donation->note }}" readonly />
@@ -165,14 +165,14 @@
                 <hr class="my-4">
                 <div class="mb-4">
                     <label class="input input-bordered flex items-center gap-2">
-                        Full Name
+                        Full Name:
                         <input type="text" name="donor_name"
                             class="grow border-none focus:ring-0 focus:border-none" placeholder="Enter full name" />
                     </label>
                 </div>
                 <div class="mb-4">
                     <label class="input input-bordered flex items-center gap-2">
-                        Email Address
+                        Email Address:
                         <input type="email" name="donor_email"
                             class="grow border-none focus:ring-0 focus:border-none"
                             placeholder="Enter email address" />
@@ -180,7 +180,7 @@
                 </div>
                 <div class="mb-4">
                     <label class="input input-bordered flex items-center gap-2">
-                        Phone Number
+                        Phone Number:
                         <input type="text" name="donor_phone"
                             class="grow border-none focus:ring-0 focus:border-none"
                             placeholder="Enter phone number" />
@@ -188,21 +188,21 @@
                 </div>
                 <div class="mb-4">
                     <label class="input input-bordered flex items-center gap-2">
-                        Donation Amount (₱)
+                        Donation Amount (₱):
                         <input type="number" name="amount" class="grow border-none focus:ring-0 focus:border-none"
                             placeholder="Enter donation amount" required>
                     </label>
                 </div>
                 <div class="mb-4">
                     <label class="input input-bordered flex items-center gap-2">
-                        Donation Comment
+                        Donation Comment:
                         <input type="text" name="note" class="grow border-none focus:ring-0 focus:border-none"
                             placeholder="Enter donation comment" />
                     </label>
                 </div>
                 <div class="mb-4">
                     <label class="input input-bordered flex items-center gap-2">
-                        Transaction ID
+                        Transaction ID:
                         <input type="text" name="transaction_id"
                             class="grow border-none focus:ring-0 focus:border-none" placeholder="Enter transaction ID"
                             required />
