@@ -84,7 +84,7 @@
                                         {{ strlen($request->notes) > 2 ? substr($request->notes, 0, 2) . '...' : $request->notes }}
                                     </td>
                                     <td class="px-6 py-1 whitespace-nowrap">
-                                        @if ($request->is_paid == 'Unpaid')
+                                        @if ($request->is_paid == 'Unpaid' && $request->status == "Approved")
                                         <button title="Pay Now"
                                             class=" hover:bg-green-100 p-4 rounded-md mx-auto"
                                             onclick="event.stopPropagation(); editModal{{ $request->id }}.showModal()">
@@ -1223,12 +1223,10 @@
     </script>
     <script>
         function updateTotal() {
-            const numberOfCopies = parseInt(document.getElementById('number-copies').value.replace(/[^0-9]/g, '')) || 0;
-            console.log("Number of Copies:", numberOfCopies); // Debugging line
-
+            const inputElement = document.getElementById('number-copies');
+            inputElement.value = inputElement.value.replace(/[^0-9]/g, ''); // Enforce numeric input
+            const numberOfCopies = parseInt(inputElement.value) || 0;
             const totalAmount = 100 * numberOfCopies;
-            console.log("Total Amount:", totalAmount); // Debugging line
-
             document.getElementById('total-amount').textContent = totalAmount.toFixed(2);
         }
 
