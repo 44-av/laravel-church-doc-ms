@@ -123,6 +123,7 @@
 
                                         <!-- Payment Form -->
                                         <form action="{{ route('payment.update', $request->id) }}" method="POST" enctype="multipart/form-data">
+
                                             @csrf
                                             @method('PUT')
 
