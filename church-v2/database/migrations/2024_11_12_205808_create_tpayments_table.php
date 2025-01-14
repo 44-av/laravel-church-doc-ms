@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('tpayments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('request_id')
-                ->constrained('trequests', 'id')
+                ->constrained('trequests')
                 ->onDelete('cascade');
             $table->decimal('amount', 10, 2);
             $table->date('payment_date');
-            $table->string('payment_method');
-            $table->string('payment_status');
-            $table->string('transaction_id');
+            $table->string('payment_method', 50); // Required field, no nullable constraint
+            $table->string('payment_status', 50); // Added length constraint
+            $table->string('transaction_id', 100)->unique(); // Added uniqueness constraint
             $table->timestamps();
         });
     }

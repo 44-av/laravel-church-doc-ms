@@ -46,8 +46,10 @@ Route::middleware('Admin')->group(function () {
     Route::get('/admin/donations', [DonationController::class, 'index'])->name('donations');
     Route::get('/admin/approval_request', [RequestController::class, 'approval_request'])->name('approval_request');
     Route::get('/admin/payment', [TransactionController::class, 'index'])->name('payment');
+    Route::get('/transactions', [TransactionController::class, 'showTable'])->name('transactions.index');
     Route::get('/admin/announcement', [AnnouncementController::class, 'index'])->name('announcement');
     Route::get('/admin/donation/show', [DonationController::class, 'showDonations'])->name('show_donations');
+    Route::get('/admin/payment', [TransactionController::class, 'index'])->name('payment');
 
 
     Route::post('/admin/priest', [PriestController::class, 'store'])->name('priest.store');
@@ -56,6 +58,7 @@ Route::middleware('Admin')->group(function () {
     Route::post('/admin/documents/ocr', [DocumentController::class, 'processOCR'])->name('documents.ocr');
     Route::post('/admin/announcement', [AnnouncementController::class, 'store'])->name('announcement.store');
     Route::post('/admin/request_baptismal', [AdminController::class, 'requestBaptismal'])->name('baptismal.store');
+    Route::post('/transactions/store', [TransactionController::class, 'store'])->name('transactions.store');
 
     Route::put('/admin/priest/{id}', [PriestController::class, 'update'])->name('priest.update');
     Route::put('/admin/mail/{id}', [MailController::class, 'update'])->name('mail.update');

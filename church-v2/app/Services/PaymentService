@@ -1,0 +1,57 @@
+<?php
+
+namespace App\Services;
+
+use App\Models\Payment;
+use App\Models\Request;
+use Illuminate\Support\Facades\DB;
+
+class PaymentService
+{
+    public function createPayment($request, $validatedData)
+    {
+        DB::beginTransaction();
+        try {
+            // Get the Request instance
+            $userRequest = Request::findOrFail($request->id);
+            
+            // Create the payment record
+            $payment = new Payment();
+            $payment->request_id = $userRequest->id;
+            $payment->amount = $validatedData['to_pay'];
+            $payment->payment_date = now();
+            $payment->payment_method = "Gcash";  // Customize based on your logic
+            $payment->payment_status = "Paid";  // Customize based on your logic
+            $payment->transaction_id = $validatedData['transaction_id'];
+            $payment->save();
+
+            DB::commit();
+
+            return $payment;
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;  // Rethrow the exception for the controller to handle
+        }
+    }
+
+    public function updatePayment($request, $payment, $validatedData)
+    {
+        DB::beginTransaction();
+        try {
+            // Update the payment record
+            $payment->update([
+                'amount' => $validatedData['to_pay'],
+                'transaction_id' => $validatedData['transaction_id'],
+                'payment_date' => now(),
+            ]);
+
+            DB::commit();
+
+            return $payment;
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;  // Rethrow the exception for the controller to handle
+        }
+    }
+}
+

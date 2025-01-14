@@ -321,7 +321,7 @@ class RequestService
                     $phpMailer->SMTPSecure = 'tls';
                     $phpMailer->Port = 587;
 
-                    $phpMailer->setFrom('airisjane02@gmail.com', 'Airis Jane Baclean-an');
+                    $phpMailer->setFrom('airisjane02@gmail.com', 'Airis Jane Baclea-an');
                     $phpMailer->addAddress($email, $user->name);
                     $phpMailer->Subject = 'Request Declined';
                     $phpMailer->Body = 'Your request has been declined. Notes: ' . $request->notes;
@@ -458,43 +458,27 @@ class RequestService
                 'is_paid' => 'Paid',
             ]);
 
-            if ($request->payment_method == 'Walk-in') {
+            // Payment creation for all payment methods
                 Payment::create([
                     'request_id' => $id,
                     'payment_status' => 'Paid',
-                    'payment_method' => $request->payment_method,
-                    'amount' => $request->amount,
-                    'payment_date' => now('Asia/Manila'),
-                    'transaction_id' => 'N/A',
-                ]);
-            }
-
-            if ($request->payment_method == 'GCash') {
-                Payment::create([
-                    'request_id' => $id,
-                    'payment_status' => 'Paid',
-                    'payment_method' => $request->payment_method,
-                    'amount' => $request->amount,
+                    'payment_method' => 'Gcash',
+                    'amount' => '500',
                     'payment_date' => now('Asia/Manila'),
                     'transaction_id' => $request->transaction_id,
                 ]);
-            }
-
-            if ($request->status == 'Decline') {
+            if ($request->status == 'Approved') {
                 Notification::create([
                     'type' => 'Request',
-                    'message' => 'A request has been declined by ' . Auth::user()->name,
+                    'message' => 'A request has been approved by ' . Auth::user()->name,
                     'is_read' => '0',
                 ]);
-            } else {
+            }
                 Notification::create([
                     'type' => 'Payment',
                     'message' => 'A request payment has been made by ' . Auth::user()->name,
                     'is_read' => '0',
-                ]);
-            }
-
-            session()->flash('success', 'Request payment updated successfully');
+                ]);session()->flash('success', 'Request payment updated successfully');
             return [
                 'error_code' => MyConstant::SUCCESS_CODE,
                 'status_code' => MyConstant::OK,
@@ -509,4 +493,4 @@ class RequestService
             ];
         }
     }
-}
+};

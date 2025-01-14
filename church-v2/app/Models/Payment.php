@@ -23,4 +23,9 @@ class Payment extends Model
     {
         return $this->belongsTo(Request::class, 'request_id', 'id');
     }
-}
+
+    public function payment() { 
+        return $this->hasOne(Payment::class);
+         }
+        
+};
