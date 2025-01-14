@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ParishionerController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PriestController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
@@ -85,6 +86,8 @@ Route::middleware('Parishioner')->group(function () {
     Route::post('/parishioner/donations', [DonationController::class, 'store'])->name('donation.store');
 
     Route::put('/parishioner/request/{id}', [RequestController::class, 'update'])->name('request.update');
+    Route::put('/payment/update/{id}/{amount_paid}/{transaction_id}', [PaymentController::class, 'update'])->name('payment.update');
+
     Route::put('/parishioner/payment/{id}', [RequestController::class, 'updatePayment'])->name('payment.update');
 
     Route::delete('/parishioner/request/{id}', [RequestController::class, 'destroy'])->name('request.destroy');
