@@ -225,7 +225,7 @@ class RequestService
                 ]);
             }
 
-            if ($request->payment_method == 'GCash') {
+            if ($request->amout != null) {
                 Payment::create([
                     'request_id' => $id,
                     'payment_status' => 'Paid',
@@ -233,13 +233,6 @@ class RequestService
                     'amount' => $request->amount,
                     'payment_date' => now('Asia/Manila'),
                     'transaction_id' => $request->transaction_id,
-                ]);
-            }
-
-            if ($request->payment_method == 'Walk-in') {
-                RequestModel::where('id', $id)->update([
-                    'transaction_id' => 'N/A',
-                    'notes' => $request->note,
                 ]);
             }
 
@@ -294,6 +287,7 @@ class RequestService
 
             if ($request->is_paid == 'Paid') {
                 Payment::where('request_id', $id)->update([
+                    'name' => Auth::user()->name,
                     'payment_status' => 'Paid',
                     'payment_method' => 'Gcash',
                     'amount' => $request->amount,
@@ -451,7 +445,7 @@ class RequestService
         }
     }
 
-    public function updatePayment(Request $request, $id)
+    public function updatePayment(Request $request, $id, $amount)
     {
         try {
             RequestModel::where('id', $id)->update([
@@ -461,9 +455,10 @@ class RequestService
             // Payment creation for all payment methods
                 Payment::create([
                     'request_id' => $id,
+                    'name' => Auth::user()->name,
                     'payment_status' => 'Paid',
                     'payment_method' => 'Gcash',
-                    'amount' => '500',
+                    'amount' => $amount,
                     'payment_date' => now('Asia/Manila'),
                     'transaction_id' => $request->transaction_id,
                 ]);

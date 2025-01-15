@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('request_id')
                 ->constrained('trequests')
                 ->onDelete('cascade');
+            $table->string('name', 50); // Required field, no nullable constraint
             $table->decimal('amount', 10, 2);
             $table->date('payment_date');
             $table->string('payment_method', 50); // Required field, no nullable constraint
