@@ -94,4 +94,8 @@ Route::middleware('Parishioner')->group(function () {
 });
 
 // Authentication Routes
+Route::get('email/verify/{user}', [EmailVerificationController::class, 'verifyEmail'])->name('verify.email')->middleware('signed');
+
+
+
 require __DIR__ . '/auth.php';

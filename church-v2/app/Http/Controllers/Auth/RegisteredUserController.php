@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Http\Controllers\Auth\EmailVerificationController;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -42,11 +43,17 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'role' => $request->role,
         ]);
+        
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        (new EmailVerificationController())->sendVerificationEmail($user);
+
+        // Redirect the user with a status message
+        return redirect(route('login'))->with('status', 'Please check your email to verify your account.');
+
+        // return redirect(route('dashboard', absolute: false));
     }
 }
