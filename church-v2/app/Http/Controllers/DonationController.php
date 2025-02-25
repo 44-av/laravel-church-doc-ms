@@ -10,6 +10,7 @@ use App\Services\useValidator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
+
 class DonationController extends Controller
 {
     protected $useValidator;
@@ -59,23 +60,23 @@ class DonationController extends Controller
     }
 
 
-    // public function store(Request $request)
-    // {
-    //     $result = (new DonationService(new useValidator))
-    //         ->store($request);
+    public function store(Request $request)
+    {
+        $result = (new DonationService(new useValidator))
+            ->store($request);
 
-    //     if ($result['error_code'] !== MyConstant::SUCCESS_CODE) {
-    //         return response()->json([
-    //             'error_code' => $result['error_code'],
-    //             'message' => $result['message'],
-    //         ], $result['status_code']);
-    //     }
+        if ($result['error_code'] !== MyConstant::SUCCESS_CODE) {
+            return response()->json([
+                'error_code' => $result['error_code'],
+                'message' => $result['message'],
+            ], $result['status_code']);
+        }
 
-    //     return redirect()->back()->with([
-    //         'error_code' => $result['error_code'],
-    //         'message' => $result['message'],
-    //     ]);
-    // }
+        return redirect()->back()->with([
+            'error_code' => $result['error_code'],
+            'message' => $result['message'],
+        ]);
+    }
 
     // Debug store function
 
@@ -96,41 +97,60 @@ class DonationController extends Controller
     //         'message' => $result['message'],
     //     ]);
     // }
+// STORE BEFORE PRIEST
+//     public function store(Request $request)
+// {
+//     // Validate request
+//     $request->validate([
+//         'transaction_id' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+//     ]);
 
-    public function store(Request $request)
-{
-    // Validate request
-    $request->validate([
-        'transaction_id' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
+//     // Check if file exists and process it
+//     if ($request->hasFile('transaction_id')) {
+//         $file = $request->file('transaction_id');
+//         $filename = 'transaction_' . time() . '.' . $file->getClientOriginalExtension();
+//         $file->move(public_path('assets/transactions'), $filename);
 
-    // Check if file exists and process it
-    if ($request->hasFile('transaction_id')) {
-        $file = $request->file('transaction_id');
-        $filename = 'transaction_' . time() . '.' . $file->getClientOriginalExtension();
-        $file->move(public_path('assets/transactions'), $filename);
+//         // Add the filename to request before passing it to DonationService
+//         $request->merge(['transaction_id' => $filename]);
+//     }
 
-        // Add the filename to request before passing it to DonationService
-        $request->merge(['transaction_id' => $filename]);
-    }
+//     // Pass the updated request to DonationService
+//     $result = (new DonationService(new UseValidator()))->store($request);
 
-    // Pass the updated request to DonationService
-    $result = (new DonationService(new UseValidator()))->store($request);
+//     if ($result['error_code'] !== MyConstant::SUCCESS_CODE) {
+//         return response()->json([
+//             'error_code' => $result['error_code'],
+//             'message' => $result['message'],
+//         ], $result['status_code']);
+//     }
 
-    if ($result['error_code'] !== MyConstant::SUCCESS_CODE) {
-        return response()->json([
-            'error_code' => $result['error_code'],
-            'message' => $result['message'],
-        ], $result['status_code']);
-    }
-
-    return redirect()->back()->with([
-        'error_code' => $result['error_code'],
-        'message' => $result['message'],
-    ]);
+//     return redirect()->back()->with([
+//         'error_code' => $result['error_code'],
+//         'message' => $result['message'],
+//     ]);
     
-}
+// }
 
+
+//     public function store(Request $request)
+// {
+//     // Pass the updated request to DonationService
+//     $result = (new DonationService(new UseValidator()))->store($request);
+
+//     if ($result['error_code'] !== MyConstant::SUCCESS_CODE) {
+//         return response()->json([
+//             'error_code' => $result['error_code'],
+//             'message' => $result['message'],
+//         ], $result['status_code']);
+//     }
+
+//     return redirect()->back()->with([
+//         'error_code' => $result['error_code'],
+//         'message' => $result['message'],
+//     ]);
+    
+// }
 
 
 
