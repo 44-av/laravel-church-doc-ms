@@ -18,7 +18,17 @@
                             </div>
                         </div>
                     @endif
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                        <!-- Total Payment as of this month -->
+                        <a href="{{ route('show_donations') }}"
+                            class="card bg-blue-100 hover:bg-blue-200 transition duration-200 w-full">
+                            <div class="card-body">
+                                <h2 class="card-title text-black">Total Payment as of This Month</h2>
+                                <p id="donation-total" class="text-2xl font-bold">
+                                    {{ number_format($monthlyPayment, 2) }}
+                                </p>
+                            </div>
+                        </a>
                         <!-- Donation Requests Card -->
                         <a href="{{ route('show_donations') }}"
                             class="card bg-blue-100 hover:bg-blue-200 transition duration-200 w-full">

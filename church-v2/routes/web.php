@@ -50,6 +50,7 @@ Route::middleware('Admin')->group(function () {
     Route::get('/transactions', [TransactionController::class, 'showTable'])->name('transactions.index');
     Route::get('/admin/announcement', [AnnouncementController::class, 'index'])->name('announcement');
     Route::get('/admin/donation/show', [DonationController::class, 'showDonations'])->name('show_donations');
+    // Route::get('/admin/donation/show', [DonationController::class, 'showPayment'])->name('show_payment');
     Route::get('/admin/payment', [TransactionController::class, 'index'])->name('payment');
 
 
@@ -66,6 +67,7 @@ Route::middleware('Admin')->group(function () {
     Route::put('/admin/documents/{id}', [DocumentController::class, 'update'])->name('documents.update');
     Route::put('/admin/approval_request/{id}', [RequestController::class, 'approve_request'])->name('approval_request.update');
     Route::put('/admin/donations/{id}', [DonationController::class, 'update'])->name('donation.update');
+    Route::put('/admin/donations/{id}/status', [DonationController::class, 'updateStatus'])->name('donation.updateStatus');
     Route::put('/admin/announcement/{id}', [AnnouncementController::class, 'update'])->name('announcement.update');
 
     Route::delete('/admin/priest/{id}', [PriestController::class, 'destroy'])->name('priest.destroy');

@@ -36,11 +36,16 @@
                             </div>
                         </div>
                     @endif
-                    <div class="flex justify-between items-center mb-4">
+                    <div class="flex justify-between items-center mb-2">
                         <h3 class="text-lg font-semibold">Documents List</h3>
                         <button class="btn btn-primary" onclick="addModal.showModal()">
-                            Add Document
+                            Add Document asfasdf
                         </button>
+                        <!-- history icon for deleted files -->
+                        <button>
+                        <img src="{{ asset('assets/img/save.svg') }}" class="w-[22px] h-[22px]">
+                        </button>
+                        
                     </div>
 
                     <div class="overflow-x-auto">
