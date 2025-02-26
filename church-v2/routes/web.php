@@ -74,6 +74,9 @@ Route::middleware('Admin')->group(function () {
     Route::delete('/admin/documents/{id}', [DocumentController::class, 'destroy'])->name('documents.destroy');
     Route::delete('/admin/announcement/{id}', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
     Route::delete('/admin/approval_request/{id}', [RequestController::class, 'destroy'])->name('approval_request.destroy');
+
+    Route::post('/admin/documents/{id}', [DocumentController::class, 'restore'])->name('documents.restore');
+
 });
 
 // Parishioner Routes

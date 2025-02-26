@@ -292,6 +292,22 @@ class DocumentService
         return $text;
     }
 
+    // Restore data
+    public function restoreDocument($id)
+    {
+        // Assuming your model is called Document
+        $document = Document::withTrashed()->find($id);
+
+        if ($document) {
+            $document->restore();
+            return true; // Success
+        }
+
+        return false; // Failure
+    }
+
+
+
     public function destroy($id)
     {
         try {
