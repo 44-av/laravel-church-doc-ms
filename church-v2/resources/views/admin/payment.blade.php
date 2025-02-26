@@ -62,66 +62,80 @@
 
                                 <!-- View Modal -->
                                 <dialog id="viewModal{{ $loop->index }}" class="modal">
-                                    <div class="modal-box rounded-lg shadow-lg w-11/12 max-w-5xl">
-                                        <div class="flex items-center gap-2">
-                                            <button class="btn text-black hover:bg-green-700 hover:text-white me-2"
+                                    <div class="modal-box rounded-lg shadow-lg w-11/12 max-w-5xl p-6 bg-white">
+                                        <!-- Modal Header -->
+                                        <div class="flex items-center justify-between mb-6">
+                                            <button class="btn text-black hover:bg-green-700 hover:text-white"
                                                 type="button" onclick="viewModal{{ $loop->index }}.close()">
-                                                <i class='bx bx-left-arrow-alt'></i>
+                                                <i class="bx bx-left-arrow-alt"></i>
                                             </button>
-                                            <h3 class="text-lg font-bold">View Transaction</h3>
+                                            <h3 class="text-lg font-semibold text-gray-800">View Transaction</h3>
                                         </div>
+
                                         <hr class="my-4">
-                                        <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                            <div class="sm:col-span-3">
-                                                <label class="input input-bordered flex items-center gap-2">
-                                                    Full Name
+
+                                        <!-- Transaction Details -->
+                                        <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
+                                            <div class="sm:col-span-1">
+                                                <label class="input input-bordered w-full flex items-center gap-2">
+                                                    <span class="font-medium text-gray-700">Full Name</span>
                                                     <input type="text" name="full_name"
-                                                        class="grow border-none focus:ring-0 focus:border-none"
+                                                        class="grow border-none focus:ring-0 focus:border-gray-300"
                                                         value="{{ $transaction['full_name'] }}" readonly />
                                                 </label>
                                             </div>
-                                            <div class="sm:col-span-3">
-                                                <label class="input input-bordered flex items-center gap-2">
-                                                    Amount
+                                            <div class="sm:col-span-1">
+                                                <label class="input input-bordered w-full flex items-center gap-2">
+                                                    <span class="font-medium text-gray-700">Amount</span>
                                                     <input type="text" name="amount"
-                                                        class="grow border-none focus:ring-0 focus:border-none"
+                                                        class="grow border-none focus:ring-0 focus:border-gray-300"
                                                         value="{{ $transaction['amount'] }}" readonly />
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                            <div class="sm:col-span-3">
-                                                <label class="input input-bordered flex items-center gap-2">
-                                                    Date & Time
+
+                                        <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 mt-6">
+                                            <div class="sm:col-span-1">
+                                                <label class="input input-bordered w-full flex items-center gap-2">
+                                                    <span class="font-medium text-gray-700">Date & Time</span>
                                                     <input type="text" name="date_time"
-                                                        class="grow border-none focus:ring-0 focus:border-none"
+                                                        class="grow border-none focus:ring-0 focus:border-gray-300"
                                                         value="{{ $transaction['date_time'] }}" readonly />
                                                 </label>
                                             </div>
-                                            <div class="sm:col-span-3">
-                                                <label class="input input-bordered flex items-center gap-2">
-                                                    Transaction Type
+                                            <div class="sm:col-span-1">
+                                                <label class="input input-bordered w-full flex items-center gap-2">
+                                                    <span class="font-medium text-gray-700">Transaction Type</span>
                                                     <input type="text" name="transaction_type"
-                                                        class="grow border-none focus:ring-0 focus:border-none"
+                                                        class="grow border-none focus:ring-0 focus:border-gray-300"
                                                         value="{{ $transaction['transaction_type'] }}" readonly />
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                            <div class="sm:col-span-6">
-                                                <label class="input input-bordered flex items-center gap-2">
-                                                    Transaction ID
-                                                    <input type="text" name="transaction_id"
-                                                        class="grow border-none focus:ring-0 focus:border-none"
-                                                        value="{{ $transaction['transaction_id'] }}" readonly />
-                                                </label>
+
+                                        <!-- Transaction ID and Image -->
+                                        <div class="mt-6">
+                                            <label class="input input-bordered w-full flex items-center gap-2">
+                                                <span class="font-medium text-gray-700">Transaction ID</span>
+                                                <input type="text" name="transaction_id"
+                                                    class="grow border-none focus:ring-0 focus:border-gray-300"
+                                                    value="{{ $transaction['transaction_id'] }}" readonly />
+                                            </label>
+
+                                            <!-- Image Display -->
+                                            <div class="mt-4 text-center">
+                                                <img src="{{ asset('assets/transactions/' . $transaction['transaction_id']) }}" 
+                                                    alt="Transaction Image" 
+                                                    class="max-w-full max-h-64 object-contain rounded-xl shadow-lg mx-auto">
                                             </div>
                                         </div>
+
                                         <hr class="my-4">
+
+                                        <!-- Close Button -->
                                         <div class="flex justify-end">
                                             <button class="btn text-black hover:bg-red-700 hover:text-white"
-                                                type="button"
-                                                onclick="event.stopPropagation(); viewModal{{ $loop->index }}.close()">
+                                                type="button" onclick="event.stopPropagation(); viewModal{{ $loop->index }}.close()">
                                                 Close
                                             </button>
                                         </div>
@@ -131,7 +145,6 @@
                             </tbody>
                         </table>
                     </div>
-
                 </div>
             </div>
         </div>

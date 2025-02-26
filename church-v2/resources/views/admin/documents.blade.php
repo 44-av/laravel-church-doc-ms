@@ -39,7 +39,7 @@
                     <div class="flex justify-between items-center mb-2">
                         <h3 class="text-lg font-semibold">Documents List</h3>
                         <button class="btn btn-primary" onclick="addModal.showModal()">
-                            Add Document asfasdf
+                            Add Document
                         </button>
                         <!-- history icon for deleted files -->
                         <button>
