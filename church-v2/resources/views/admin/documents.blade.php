@@ -45,9 +45,9 @@
                         <button>
                         <img src="{{ asset('assets/img/save.svg') }}" class="w-[22px] h-[22px]">
                         </button>
-                        
                     </div>
 
+                    <!-- Table -->
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200 table-auto">
                             <thead class="bg-gray-50">
@@ -191,6 +191,63 @@
                 </div>
             </div>
         </div>
+        
+
+        <!-- Show Deleted Document Record -->
+        <dialog id="restoreModal" class="modal">
+            <!-- <div class="extra"> -->
+            <div class="modal-box rounded-lg shadow-lg extra">
+                <table class="min-w-full divide-y divide-white table-auto">
+                    <thead class="bg-white-50">
+                        <tr>
+                            <th
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Document Type</th>
+                            <th
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Full Name</th>
+                            <th
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                File</th>
+                            <th
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Actions</th>
+                        </tr>
+                    </thead>    
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach ($deletedDocuments as $document)
+                            <tr class="cursor-pointer" data-document-type="{{ $document->document_type }}"
+                                onclick="viewModal{{ $document->id }}.showModal()">
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $document->document_type }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $document->full_name }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {{ strlen($document->file) > 10 ? substr($document->file, 0, 10) . '...' : $document->file }}
+                                </td>
+                                <!-- action="{{ route('documents.restore', $document->id) }}"  -->
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <!-- <button class="btn bg-red-700 hover:bg-red-800 text-white" onclick="event.stopPropagation();" action="{{ route('documents.restore', $document->id) }}" >Restore</button> -->
+                                    <form action="{{ route('documents.restore', $document->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('POST')  <!-- Use PATCH if needed -->
+                                        <!-- <button type="submit" class="btn bg-green-700 text-white hover:bg-green-800 hover:text-white" onclick="event.stopPropagation();"> -->
+                                        <button type="submit" class="btn bg-white text-green-700 border border-green-700 hover:bg-green-700 hover:text-white hover:border-green-700" onclick="event.stopPropagation();">
+                                            Restore
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <!-- View Modal -->
+                        @endforeach
+                    </tbody>
+                </table>
+                <div class="flex justify-end">
+                    <!-- <button class="btn text-red bg-white-700 hover:bg-red-700 hover:text-white" type="button" -->
+                    <button class="btn bg-white text-red-700 border border-red-700 hover:bg-red-700 hover:text-white hover:border-red-700 mt-6" type="button" onclick="restoreModal.close()">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </dialog>
 
         <!-- Add Document Modal -->
         <dialog id="addModal" class="modal">
@@ -243,6 +300,14 @@
                 transform: translateY(-50%);
                 pointer-events: none;
             }
+
+            .extra{
+                /* width: 90%; */
+                background: white;
+                /* padding: 10px; */
+                border: 1px solid black;
+            }
+            
         </style>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
