@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Constant\MyConstant;
 use App\Models\Document;
 use App\Models\Donation;
+use App\Models\Payment;
 use App\Models\Mail;
 use App\Models\Priest;
 use App\Models\Request;
@@ -19,6 +20,7 @@ class AdminController extends Controller
         // Count of various entities
         $documents = Document::count();
         $donations = Donation::count();
+        $payment = Payment::count();
         $mails = Mail::count();
         $priests = Priest::count();
         $requests = Request::all();
@@ -33,10 +35,15 @@ class AdminController extends Controller
                                  ->whereYear('created_at', now()->year)
                                  ->sum('amount'); // Ensure 'amount' is the correct column name for donations
 
+        //  Calculate the monthly total payment amount
+        $monthlyPayment = Payment::whereMonth('created_at', now()->month)
+                                 ->whereYear('created_at', now()->year)
+                                 ->sum('amount'); // Ensure 'amount' is the correct column name for payment
+
         // Pass all the necessary data to the view
         return view('admin.dashboard', compact(
             'documents', 'donations', 'mails', 'priests', 'requests', 
-            'pending', 'approved', 'declined', 'monthlyTotal' // Pass $monthlyTotal to the view
+            'pending', 'approved', 'declined', 'monthlyTotal', 'monthlyPayment' // Pass $monthlyTotal to the view
         ));
     }
 

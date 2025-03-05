@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Constant\MyConstant;
+// use App\Jobs\DonationJob;
 use App\Models\Donation;
 use App\Models\Notification;
 use Illuminate\Database\QueryException;
@@ -20,26 +21,31 @@ class DonationService
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), $this->validator->donationValidator());
-
-        if ($validator->fails()) {
-            session()->flash('error', $validator->errors()->first());
-            return [
-                'error_code' => MyConstant::FAILED_CODE,
-                'status_code' => MyConstant::BAD_REQUEST,
-                'message' => $validator->errors()->first(),
-            ];
-        }
-
         try {
-            Donation::create([
+            // Handle File Upload
+            $transactionId = null;
+
+            if ($request->hasFile('transaction_id')) {
+                $file = $request->file('transaction_id');
+                $extension = $file->getClientOriginalExtension();
+                $filename ='donations_' . uniqid() . '.' . $extension;
+            
+                // Move to folder
+                $file->move(public_path('assets/transactions'), $filename);
+            
+                // file name in database
+                $data['transaction_id'] = 'assets/transactions/' . $filename;
+
+            }
+            // Save to Database
+            $donation = Donation::create([
                 'donor_name' => $request->donor_name,
                 'donor_email' => $request->donor_email,
                 'donor_phone' => $request->donor_phone,
                 'donation_date' => $request->donation_date,
                 'amount' => $request->amount,
                 'note' => $request->note,
-                'transaction_id' => $request->transaction_id,
+                'transaction_id' => $filename,
                 'status' => 'Pending',
             ]);
 

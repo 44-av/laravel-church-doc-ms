@@ -106,7 +106,7 @@
                                             <div class="mb-4">
                                                 <label class="input input-bordered flex items-center gap-2">
                                                     Transaction ID:
-                                                    <input type="text" name="transaction_id"
+                                                    <input type="img" name="transaction_id"
                                                         class="grow border-none focus:ring-0 focus:border-none"
                                                         value="{{ $donation->transaction_id }}" readonly />
                                                 </label>
@@ -201,11 +201,17 @@
                     </label>
                 </div>
                 <div class="mb-4">
-                    <label class="input input-bordered flex items-center gap-2">
+                    <!-- <label class="input input-bordered flex items-center gap-2">
                         Transaction ID:
                         <input type="text" name="transaction_id"
                             class="grow border-none focus:ring-0 focus:border-none" placeholder="Enter transaction ID"
                             required />
+                    </label> -->
+                    <label class="input input-bordered flex items-center gap-2">
+                        Transaction ID:
+                            <input type="file" name="transaction_id" accept="image/*"
+                            class="grow border-none focus:ring-0 focus:border-none"
+                            />
                     </label>
                     <label for="transaction_id" class="text-gray-500 text-sm italic text-green-600">
                         This is the transaction ID from your GCash.

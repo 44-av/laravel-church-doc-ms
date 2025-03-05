@@ -62,10 +62,23 @@
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $donation->donation_date }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $donation->status }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <button class="hover:bg-green-100 p-3 rounded-md"
-                                                onclick="event.stopPropagation(); editModal{{ $donation->id }}.showModal()">
+
+                                        <!-- <form action="{{ route('donation.updateStatus', $donation->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="status" value="Received">
+
+                                            <button type="submit" class="hover:bg-green-100 p-3 rounded-md">
                                                 <img src="{{ asset('assets/img/save.svg') }}" class="w-[22px] h-[22px]">
                                             </button>
+                                        </form> -->
+                                        
+
+                                            <button class="hover:bg-green-100 p-3 rounded-md"
+                                                onclick="event.stopPropagation(); updateStatus{{ $donation->id }}.showModal()">
+                                                <img src="{{ asset('assets/img/save.svg') }}" class="w-[22px] h-[22px]">
+                                            </button>
+
                                             <button class="hover:bg-blue-100 p-3 rounded-md"
                                                 onclick="event.stopPropagation(); editModal{{ $donation->id }}.showModal()">
                                                 <img src="{{ asset('assets/img/edit.svg') }}"
@@ -142,6 +155,34 @@
                                         </div>
                                     </dialog>
 
+                                    <!-- Update status Modal -->
+                                    <dialog id="updateStatus{{ $donation->id }}" class="modal">
+                                        <div class="modal-box rounded-lg shadow-lg">
+                                            <hr class="my-4">
+                                            <form action="{{ route('donation.updateStatus', $donation->id) }}"
+                                                method="POST" enctype="multipart/form-data" id="updateStatus">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="mb-4">
+                                                    <label class="block text-gray-700 font-medium">Receive Donation?</label>
+                                                    <input type="hidden" name="status"
+                                                        placeholder="Receive Donation?"
+                                                        value="Received"
+                                                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-3 transition duration-150 ease-in-out"
+                                                        required>
+                                                </div>
+                                                <hr class="my-4">
+                                                <div class="flex justify-end">
+                                                    <button class="btn btn-primary text-white me-2"
+                                                        type="submit">Receive</button>
+                                                    <button class="btn text-black hover:bg-red-700 hover:text-white"
+                                                        type="button"
+                                                        onclick="updateStatus{{ $donation->id }}.close()">Close</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </dialog>
+
                                     <!-- Edit Modal -->
                                     <dialog id="editModal{{ $donation->id }}" class="modal">
                                         <div class="modal-box rounded-lg shadow-lg">
@@ -151,12 +192,17 @@
                                                 method="POST" enctype="multipart/form-data" id="editForm">
                                                 @csrf
                                                 @method('PUT')
+
+                                                @php
+                                                    $isEditable = $donation->status == 'Pending'
+                                                @endphp
                                                 <div class="mb-4">
                                                     <label class="block text-gray-700 font-medium">Donor Name</label>
                                                     <input type="text" name="donor_name"
                                                         placeholder="Enter donor name"
                                                         value="{{ $donation->donor_name }}"
                                                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-3 transition duration-150 ease-in-out"
+                                                        {{ !$isEditable ? 'readonly' : '' }}
                                                         required>
                                                 </div>
                                                 <div class="mb-4">
@@ -164,20 +210,25 @@
                                                     <input type="email" name="donor_email"
                                                         placeholder="Enter donor email"
                                                         value="{{ $donation->donor_email }}"
-                                                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-3 transition duration-150 ease-in-out">
+                                                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-3 transition duration-150 ease-in-out"
+                                                        {{ !$isEditable ? 'readonly' : '' }}
+                                                        >
                                                 </div>
                                                 <div class="mb-4">
                                                     <label class="block text-gray-700 font-medium">Donor Phone</label>
                                                     <input type="text" name="donor_phone"
                                                         placeholder="Enter donor phone"
                                                         value="{{ $donation->donor_phone }}"
-                                                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-3 transition duration-150 ease-in-out">
+                                                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-3 transition duration-150 ease-in-out"
+                                                        {{ !$isEditable ? 'readonly' : '' }}
+                                                        >
                                                 </div>
                                                 <div class="mb-4">
                                                     <label class="block text-gray-700 font-medium">Amount</label>
                                                     <input type="number" name="amount" placeholder="Enter amount"
                                                         value="{{ $donation->amount }}"
                                                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-3 transition duration-150 ease-in-out"
+                                                        {{ !$isEditable ? 'readonly' : '' }}
                                                         required>
                                                 </div>
                                                 <div class="mb-4">
@@ -185,13 +236,16 @@
                                                     <input type="date" name="donation_date"
                                                         value="{{ $donation->donation_date }}"
                                                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-3 transition duration-150 ease-in-out"
+                                                        {{ !$isEditable ? 'readonly' : '' }}
                                                         required>
                                                 </div>
                                                 <div class="mb-4">
                                                     <label class="block text-gray-700 font-medium">Note</label>
                                                     <input type="text" name="note" placeholder="Enter note"
                                                         value="{{ $donation->note }}"
-                                                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-3 transition duration-150 ease-in-out">
+                                                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-3 transition duration-150 ease-in-out"
+                                                        {{ !$isEditable ? 'readonly' : '' }}
+                                                        >
                                                 </div>
                                                 <div class="mb-4">
                                                     <label class="block text-gray-700 font-medium">Status</label>
@@ -236,7 +290,7 @@
                                                         type="submit">Delete</button>
                                                     <button class="btn text-black hover:bg-red-700 hover:text-white"
                                                         type="button"
-                                                        onclick="editModal{{ $donation->id }}.close()">Close</button>
+                                                        onclick="destroyModal{{ $donation->id }}.close()">Close</button>
                                                 </form>
                                             </div>
                                         </div>
