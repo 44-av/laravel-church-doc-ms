@@ -36,15 +36,17 @@
                             </div>
                         </div>
                     @endif
-                    <div class="flex justify-between items-center mb-2">
+                    <div class="flex justify-between items-center mb-4">
                         <h3 class="text-lg font-semibold">Documents List</h3>
-                        <button class="btn btn-primary" onclick="addModal.showModal()">
-                            Add Document
-                        </button>
-                        <!-- history icon for deleted files -->
-                        <button>
-                        <img src="{{ asset('assets/img/save.svg') }}" class="w-[22px] h-[22px]">
-                        </button>
+                        <div class="flex space-x-4">
+                            <button class="btn btn-primary" onclick="addModal.showModal()">
+                                Add Document
+                            </button>
+                            <button onclick="restoreModal.showModal()">
+                                <img src="{{ asset('assets/img/history-ui-web-svgrepo-com.svg') }}" class="w-[22px] h-[22px]">
+                            </button>
+                            
+                        </div>
                     </div>
 
                     <!-- Table -->
