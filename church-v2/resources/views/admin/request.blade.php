@@ -108,7 +108,7 @@
                                                 <input type="hidden" name="transaction_id"
                                                     value="{{ $request->payment->transaction_id ?? '' }}">
                                                 <input type="hidden" name="number_of_copies"
-                                                    value="{{ $request->certificate_detail->number_of_copies }}">
+                                                value="{{ $request->certificate_detail->number_of_copies }}">
                                                 <div class="mb-4">
                                                     <label class="block text-gray-700 font-medium">Status</label>
                                                     <select name="status" id="status{{ $request->id }}"

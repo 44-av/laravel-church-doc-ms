@@ -6,6 +6,7 @@ use App\Constant\MyConstant;
 use App\Models\CertificateType;
 use App\Models\Request;
 use App\Models\User;
+use App\Models\Notification;
 use App\Services\RequestService;
 use App\Services\useValidator;
 use Illuminate\Http\Request as HttpRequest;
@@ -113,6 +114,12 @@ class RequestController extends Controller
                 'message' => $result['message'],
             ], $result['status_code']);
         }
+
+        Notification::create([
+            'type' => 'Request',
+            'message' => 'A request has been deleted by ' . Auth::user()->name,
+            'is_read' => false,
+        ]);
 
         return redirect()->back()->with([
             'error_code' => $result['error_code'],

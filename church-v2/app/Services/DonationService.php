@@ -7,6 +7,7 @@ use App\Constant\MyConstant;
 use App\Models\Donation;
 use App\Models\Notification;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -136,6 +137,12 @@ class DonationService
             }
 
             $donations->delete();
+
+            Notification::create([
+                'type' => 'Donation',
+                'message' => 'A new donation has been deleted by ' . Auth::user()->name,
+                'is_read' => false,
+            ]);
 
             session()->flash('success', 'Donation deleted successfully');
             return [

@@ -6,6 +6,8 @@ use App\Constant\MyConstant;
 use App\Http\Requests\DonationRequest;
 use App\Models\Donation;
 use App\Services\DonationService;
+use App\Models\Notification;
+use Illuminate\Support\Facades\Auth;
 use App\Services\useValidator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -184,6 +186,12 @@ class DonationController extends Controller
         // Update only the status field
         $donation->update([
             'status' => 'Received',
+        ]);
+
+        Notification::create([
+            'type' => 'Donation',
+            'message' => 'A donation was received by ' . Auth::user()->name,
+            'is_read' => '0',
         ]);
 
         return redirect()->back()->with('success', 'Donation status updated successfully.');

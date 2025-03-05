@@ -236,20 +236,6 @@ class RequestService
                 ]);
             }
 
-            if ($request->status == 'Decline') {
-                Notification::create([
-                    'type' => 'Payment',
-                    'message' => 'A new request payment has been declined by ' . Auth::user()->name,
-                    'is_read' => '0',
-                ]);
-            } else {
-                Notification::create([
-                    'type' => 'Request',
-                    'message' => 'A new request has been updated by ' . Auth::user()->name,
-                    'is_read' => '0',
-                ]);
-            }
-
             session()->flash('success', 'Request updated successfully');
             return [
                 'error_code' => MyConstant::SUCCESS_CODE,
@@ -326,14 +312,32 @@ class RequestService
 
             if ($request->status == 'Decline') {
                 Notification::create([
-                    'type' => 'Request',
-                    'message' => 'A new request has been declined by ' . Auth::user()->name,
+                    'type' => 'Payment',
+                    'message' => 'A request payment has been declined by ' . Auth::user()->name,
                     'is_read' => '0',
                 ]);
-            } else {
+            }elseif($request->status == 'Approved'){
                 Notification::create([
                     'type' => 'Payment',
-                    'message' => 'A new request payment has been made by ' . Auth::user()->name,
+                    'message' => 'A request payment has been approved by ' . Auth::user()->name,
+                    'is_read' => '0',
+                ]);
+            }elseif($request->status == 'Checking'){
+                Notification::create([
+                    'type' => 'Payment',
+                    'message' => 'A request payment is for checking',
+                    'is_read' => '0',
+                ]);
+            }elseif($request->status == 'On Process'){
+                Notification::create([
+                    'type' => 'Payment',
+                    'message' => 'A request payment is on process',
+                    'is_read' => '0',
+                ]);
+            }else {
+                Notification::create([
+                    'type' => 'Request',
+                    'message' => 'A request payment is pending' . Auth::user()->name,
                     'is_read' => '0',
                 ]);
             }
@@ -365,6 +369,7 @@ class RequestService
                 'status_code' => MyConstant::OK,
                 'message' => 'Request deleted successfully',
             ];
+
         } catch (QueryException $e) {
             session()->flash('error', 'Internal server error');
             return [
@@ -469,11 +474,7 @@ class RequestService
                     'is_read' => '0',
                 ]);
             }
-                Notification::create([
-                    'type' => 'Payment',
-                    'message' => 'A request payment has been made by ' . Auth::user()->name,
-                    'is_read' => '0',
-                ]);session()->flash('success', 'Request payment updated successfully');
+            session()->flash('success', 'Request payment updated successfully');
             return [
                 'error_code' => MyConstant::SUCCESS_CODE,
                 'status_code' => MyConstant::OK,

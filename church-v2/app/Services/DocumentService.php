@@ -332,6 +332,12 @@ class DocumentService
 
             $document->delete();
 
+            $notification = new Notification();
+            $notification->type = 'Document';
+            $notification->message = 'A document has been deleted by ' . Auth::user()->name;
+            $notification->is_read = '0';
+            $notification->save();
+
             session()->flash('success', 'Document deleted successfully');
             return [
                 'error_code' => MyConstant::SUCCESS_CODE,
