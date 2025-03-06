@@ -14,12 +14,20 @@ use App\Http\Controllers\PriestController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\GoogleAuthController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+
+// GOOGLE AUTH ROUTES
+// Route to redirect to Google's OAuth page
+Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
+
+// Route to handle the callback from Google
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
 
 // Dashboard Redirect Based on Role
 Route::get('/dashboard', function () {
