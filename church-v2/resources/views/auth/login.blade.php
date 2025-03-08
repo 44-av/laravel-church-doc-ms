@@ -48,7 +48,12 @@
             <x-primary-button class="ms-3">
                 {{ __('Log in') }}
             </x-primary-button>
-            <a href="{{ route('auth.google.redirect') }}" class="btn bg-blue-100 p-3 shadow-sm border rounded-md text-blue-900">
+            
+        </div>
+        <div class="flex flex-col items-center justify-end mt-4">
+            <hr class="w-full border-t border-gray-300 mb-3">
+            <a href="{{ route('google-auth') }}" class=" flex flex-col btn bg-blue-100 p-3 shadow-sm border rounded-md text-blue-900">
+            <img src="{{ asset('assets/img/google.png') }}" class="w-[22px] h-[22px]">
                 Login with Google 
             </a>
         </div>
