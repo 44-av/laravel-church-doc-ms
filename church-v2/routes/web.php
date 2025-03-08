@@ -23,11 +23,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
 
 // GOOGLE AUTH ROUTES
-// Route to redirect to Google's OAuth page
-Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
+Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
+Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);
 
-// Route to handle the callback from Google
-Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
 
 // Dashboard Redirect Based on Role
 Route::get('/dashboard', function () {
