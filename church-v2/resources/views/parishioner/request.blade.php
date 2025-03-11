@@ -183,14 +183,20 @@
                                                             required
                                                             class="input input-bordered w-full"
                                                             oninput="updateTotal()">
-                                                        <input
-                                                            type="text"
-                                                            name="transaction_id"
-                                                            placeholder="Transaction ID"
-                                                            id="transaction_id"
-                                                            class="input input-bordered w-full"
-                                                            value="{{ $request->payment->transaction_id ?? '' }}"
-                                                            required>
+
+                                                            <label class="input input-bordered flex items-center gap-2 text-gray-400">
+                                                                Transaction ID:
+                                                                    <input
+                                                                    type="file" 
+                                                                    name="transaction_id" 
+                                                                    placeholder="Transaction ID"
+                                                                    id="transaction_id"
+                                                                    accept="image/*"
+                                                                    class="grow border-none focus:ring-0 focus:border-none"
+                                                                    value="{{ $request->payment->transaction_id ?? '' }}"
+                                                                    required
+                                                                    />
+                                                            </label>
                                                         <input
                                                             type="text"
                                                             name="to_pay"

@@ -78,10 +78,10 @@ class DocumentService
 
                 $fileName = basename($file->getClientOriginalName());
                 $file->move($directory, $fileName);
-                $document->document_type = $documentType;
+                // $document->document_type = $documentType;
                 $document->file = $fileName;
             }
-
+            $document->document_type = $request->document_type;
             $document->full_name = $request->full_name;
             $document->uploaded_by = $request->uploaded_by;
             $document->save();

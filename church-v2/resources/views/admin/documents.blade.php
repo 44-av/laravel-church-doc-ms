@@ -259,6 +259,8 @@
                 <form action="{{ route('documents.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="uploaded_by" value="{{ Auth::user()->name }}">
+                    <input type="hidden" name="document_type" id="selected_document_type" value="Baptismal Certificate">
+    
                     <div class="mb-4">
                         <label class="block text-gray-700 font-medium">Full Name</label>
                         <input type="text" name="full_name" placeholder="Enter full name"
@@ -346,5 +348,27 @@
                     $('#file_input').val('');
                 });
             });
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const filterDivs = document.querySelectorAll("[data-type]");
+                const documentTypeInput = document.getElementById("selected_document_type");
+                const addModal = document.getElementById("addModal");
+
+                filterDivs.forEach(div => {
+                    div.addEventListener("click", function () {
+                        const selectedType = this.getAttribute("data-type");
+                        
+                        // Store selected document type in hidden input
+                        documentTypeInput.value = selectedType;
+                    });
+                });
+                document.querySelector("form").addEventListener("submit", function () {
+                    if (!documentTypeInput.value) {
+                        documentTypeInput.value = "Baptismal Certificate";
+                    }
+                });
+            });
+
         </script>
+
 </x-app-layout>
