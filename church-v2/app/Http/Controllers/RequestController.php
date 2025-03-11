@@ -145,23 +145,62 @@ class RequestController extends Controller
         ]);
     }
 
+    // public function updatePayment(HttpRequest $request, $id)
+    // {
+    //     $amount = $request->to_pay;
+    //     $result = (new RequestService(new useValidator))
+    //         ->updatePayment($request, $id, $amount);
+
+    //     if ($result['error_code'] !== MyConstant::SUCCESS_CODE) {
+    //         return response()->json([
+    //             'error_code' => $result['error_code'],
+    //             'message' => $result['message'],
+    //         ], $result['status_code']);
+    //     }
+
+    //     return redirect()->back()->with([
+    //         'error_code' => $result['error_code'],
+    //         'message' => $result['message'],
+    //     ]);
+    // }
     public function updatePayment(HttpRequest $request, $id)
-    {
-        $result = (new RequestService(new useValidator))
-            ->updatePayment($request, $id);
+{
+    // Validate request including the file
+    $request->validate([
+        'transaction_id' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Restrict file types and size
+        'to_pay' => 'required|numeric',
+    ]);
 
-        if ($result['error_code'] !== MyConstant::SUCCESS_CODE) {
-            return response()->json([
-                'error_code' => $result['error_code'],
-                'message' => $result['message'],
-            ], $result['status_code']);
-        }
+    // Handle the file upload
+    if ($request->hasFile('transaction_id')) {
+        $file = $request->file('transaction_id');
+        $filename = time() . '_' . $file->getClientOriginalName(); // Generate unique filename
 
-        return redirect()->back()->with([
+        $destinationPath = public_path('assets/payment'); // Absolute path
+        $file->move($destinationPath, $filename); // Move the file
+        // $file->storeAs('transaction_images', $filename); // Store in 'storage/app/public/transaction_images'
+    } else {
+        return redirect()->back()->with('error', 'Transaction ID image is required.');
+    }
+
+    $amount = $request->to_pay; // Match input name in the form
+
+    $result = (new RequestService(new useValidator))
+        ->updatePayment($request, $id, $amount, $filename); // Pass only filename
+
+    if ($result['error_code'] !== MyConstant::SUCCESS_CODE) {
+        return response()->json([
             'error_code' => $result['error_code'],
             'message' => $result['message'],
-        ]);
+        ], $result['status_code']);
     }
+
+    return redirect()->back()->with([
+        'error_code' => $result['error_code'],
+        'message' => $result['message'],
+    ]);
+}
+
 
     public function showDeletedRequests()
     {

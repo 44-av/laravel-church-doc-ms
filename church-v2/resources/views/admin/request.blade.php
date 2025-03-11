@@ -108,7 +108,7 @@
                                                 <input type="hidden" name="transaction_id"
                                                     value="{{ $request->payment->transaction_id ?? '' }}">
                                                 <input type="hidden" name="number_of_copies"
-                                                value="{{ $request->certificate_detail->number_of_copies }}">
+                                                    value="{{ $request->certificate_detail->number_of_copies }}">
                                                 <div class="mb-4">
                                                     <label class="block text-gray-700 font-medium">Status</label>
                                                     <select name="status" id="status{{ $request->id }}"
@@ -677,28 +677,35 @@
                                             @endif
                                             <hr class="my-4">
                                             <h2 class="text-lg font-bold mb-4 mt-4">Payment Information</h2>
-                                            <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                                <div class="sm:col-span-3">
-                                                    <label for="amount"
-                                                        class="block text-sm/6 font-medium text-gray-900">Amount</label>
+                                            <div class="mt-4 grid grid-cols-1 gap-y-6">
+                                                <!-- Amount Field -->
+                                                <div>
+                                                    <label for="amount" class="block text-sm font-medium text-gray-900">Amount</label>
                                                     <div class="mt-2">
                                                         <input type="text" name="amount"
-                                                            class="input input-bordered w-full max-w-xs"
+                                                            class="input input-bordered w-full"
                                                             value="{{ $request->payment->amount ?? '' }}" readonly />
                                                     </div>
                                                 </div>
-                                                <div class="sm:col-span-3">
-                                                    <label for="transaction_id"
-                                                        class="block text-sm/6 font-medium text-gray-900">Transaction
-                                                        ID</label>
+
+                                                <!-- Transaction ID Field -->
+                                                <div>
+                                                    <label for="transaction_id" class="block text-sm font-medium text-gray-900">
+                                                        Transaction ID
+                                                    </label>
                                                     <div class="mt-2">
-                                                        <input type="text" name="transaction_id"
-                                                            class="input input-bordered w-full max-w-xs"
-                                                            value="{{ $request->payment->transaction_id ?? '' }}"
-                                                            readonly />
+                                                        @if(!empty($request->payment->transaction_id))
+                                                            <img src="{{ asset('assets/payment/' . $request->payment->transaction_id) }}" 
+                                                                alt="Transaction Image" 
+                                                                class="w-full max-w-lg rounded-lg border"> <!-- Ensures image is responsive -->
+                                                        @else
+                                                            <p class="text-gray-500">No transaction image uploaded</p>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
+
+
                                             <hr class="my-4">
                                             <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                                 <div class="sm:col-span-3">

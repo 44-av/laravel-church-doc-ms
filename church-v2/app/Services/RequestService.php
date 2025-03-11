@@ -450,43 +450,87 @@ class RequestService
         }
     }
 
-    public function updatePayment(Request $request, $id, $amount)
-    {
-        try {
-            RequestModel::where('id', $id)->update([
-                'is_paid' => 'Paid',
-            ]);
+    // public function updatePayment(Request $request, $id, $amount)
+    // {
+    //     try {
+    //         RequestModel::where('id', $id)->update([
+    //             'is_paid' => 'Paid',
+    //         ]);
 
-            // Payment creation for all payment methods
-                Payment::create([
-                    'request_id' => $id,
-                    'name' => Auth::user()->name,
-                    'payment_status' => 'Paid',
-                    'payment_method' => 'Gcash',
-                    'amount' => $amount,
-                    'payment_date' => now('Asia/Manila'),
-                    'transaction_id' => $request->transaction_id,
-                ]);
-            if ($request->status == 'Approved') {
-                Notification::create([
-                    'type' => 'Request',
-                    'message' => 'A request has been approved by ' . Auth::user()->name,
-                    'is_read' => '0',
-                ]);
-            }
-            session()->flash('success', 'Request payment updated successfully');
-            return [
-                'error_code' => MyConstant::SUCCESS_CODE,
-                'status_code' => MyConstant::OK,
-                'message' => 'Request payment updated successfully',
-            ];
-        } catch (QueryException $e) {
-            session()->flash('error', 'Internal server error');
-            return [
-                'error_code' => MyConstant::INTERNAL_SERVER_ERROR,
-                'status_code' => MyConstant::INTERNAL_SERVER_ERROR,
-                'message' => 'Internal server error: ' . $e->getMessage(),
-            ];
+    //         // Payment creation for all payment methods
+    //             Payment::create([
+    //                 'request_id' => $id,
+    //                 'name' => Auth::user()->name,
+    //                 'payment_status' => 'Paid',
+    //                 'payment_method' => 'Gcash',
+    //                 'amount' => $amount,
+    //                 'payment_date' => now('Asia/Manila'),
+    //                 'transaction_id' => $request->transaction_id,
+    //             ]);
+    //         if ($request->status == 'Approved') {
+    //             Notification::create([
+    //                 'type' => 'Request',
+    //                 'message' => 'A request has been approved by ' . Auth::user()->name,
+    //                 'is_read' => '0',
+    //             ]);
+    //         }
+    //         session()->flash('success', 'Request payment updated successfully');
+    //         return [
+    //             'error_code' => MyConstant::SUCCESS_CODE,
+    //             'status_code' => MyConstant::OK,
+    //             'message' => 'Request payment updated successfully',
+    //         ];
+    //     } catch (QueryException $e) {
+    //         session()->flash('error', 'Internal server error');
+    //         return [
+    //             'error_code' => MyConstant::INTERNAL_SERVER_ERROR,
+    //             'status_code' => MyConstant::INTERNAL_SERVER_ERROR,
+    //             'message' => 'Internal server error: ' . $e->getMessage(),
+    //         ];
+    //     }
+    // }
+
+    public function updatePayment(Request $request, $id, $amount, $filename)
+{
+    try {
+        RequestModel::where('id', $id)->update([
+            'is_paid' => 'Paid',
+        ]);
+
+        // Payment creation for all payment methods
+        Payment::create([
+            'request_id' => $id,
+            'name' => Auth::user()->name,
+            'payment_status' => 'Paid',
+            'payment_method' => 'Gcash',
+            'amount' => $amount,
+            'payment_date' => now('Asia/Manila'),
+            'transaction_id' => $filename, // Save only the filename
+        ]);
+
+        if ($request->status == 'Approved') {
+            Notification::create([
+                'type' => 'Request',
+                'message' => 'A request has been approved by ' . Auth::user()->name,
+                'is_read' => '0',
+            ]);
         }
+
+        session()->flash('success', 'Request payment updated successfully');
+        return [
+            'error_code' => MyConstant::SUCCESS_CODE,
+            'status_code' => MyConstant::OK,
+            'message' => 'Request payment updated successfully',
+        ];
+    } catch (QueryException $e) {
+        session()->flash('error', 'Internal server error');
+        return [
+            'error_code' => MyConstant::INTERNAL_SERVER_ERROR,
+            'status_code' => MyConstant::INTERNAL_SERVER_ERROR,
+            'message' => 'Internal server error: ' . $e->getMessage(),
+        ];
     }
+}
+
+
 };
