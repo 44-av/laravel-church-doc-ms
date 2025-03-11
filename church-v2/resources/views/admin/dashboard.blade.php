@@ -20,7 +20,7 @@
                     @endif
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                         <!-- Total Payment as of this month -->
-                        <a href="{{ route('show_donations') }}"
+                        <a href="{{ route('show_payment') }}"
                             class="card bg-blue-100 hover:bg-blue-200 transition duration-200 w-full">
                             <div class="card-body">
                                 <h2 class="card-title text-black">Total Payment as of This Month</h2>

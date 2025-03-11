@@ -56,7 +56,7 @@ Route::middleware('Admin')->group(function () {
     Route::get('/transactions', [TransactionController::class, 'showTable'])->name('transactions.index');
     Route::get('/admin/announcement', [AnnouncementController::class, 'index'])->name('announcement');
     Route::get('/admin/donation/show', [DonationController::class, 'showDonations'])->name('show_donations');
-    // Route::get('/admin/donation/show', [DonationController::class, 'showPayment'])->name('show_payment');
+    Route::get('/admin/payment/show', [DonationController::class, 'showPayment'])->name('show_payment');
     Route::get('/admin/payment', [TransactionController::class, 'index'])->name('payment');
 
 

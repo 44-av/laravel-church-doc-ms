@@ -67,7 +67,7 @@ class TransactionController extends Controller
 
         $paymentTransactions = $payments->map(function ($payment) {
             return [
-                'full_name' => $payment->payer_name,
+                'full_name' => $payment->name,
                 'amount' => $payment->amount,
                 'date_time' => $payment->payment_date,
                 'transaction_type' => 'Payment',

@@ -31,13 +31,13 @@ class AdminController extends Controller
         $declined = $requests->where('status', 'Decline')->count();
 
         // Calculate the monthly total donation amount
-        $monthlyTotal = Donation::whereMonth('created_at', now()->month)
-                                 ->whereYear('created_at', now()->year)
+        $monthlyTotal = Donation::whereMonth('donation_date', now()->month)
+                                 ->whereYear('donation_date', now()->year)
                                  ->sum('amount'); // Ensure 'amount' is the correct column name for donations
 
         //  Calculate the monthly total payment amount
-        $monthlyPayment = Payment::whereMonth('created_at', now()->month)
-                                 ->whereYear('created_at', now()->year)
+        $monthlyPayment = Payment::whereMonth('payment_date', now()->month)
+                                 ->whereYear('payment_date', now()->year)
                                  ->sum('amount'); // Ensure 'amount' is the correct column name for payment
 
         // Pass all the necessary data to the view

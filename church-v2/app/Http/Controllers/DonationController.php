@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Constant\MyConstant;
 use App\Http\Requests\DonationRequest;
 use App\Models\Donation;
-use App\Services\DonationService;
+use App\Models\Payment;
 use App\Models\Notification;
+use App\Services\DonationService;
 use Illuminate\Support\Facades\Auth;
 use App\Services\useValidator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+
 
 
 class DonationController extends Controller
@@ -50,15 +52,73 @@ class DonationController extends Controller
             ->paginate(10);
         return view('parishioner.donation', compact('donations'));
     }
+    // public function showDonations()
+    // {
+    //     $startOfMonth = now()->startOfMonth();
+    //     $endOfMonth = now()->endOfMonth();
+
+    //     $monthlyTotal = Donation::whereBetween('donation_date', [$startOfMonth, $endOfMonth])
+    //         ->sum('amount');
+
+    //     return view('admin.payment', compact('monthlyTotal'));
+    // }
+
     public function showDonations()
     {
         $startOfMonth = now()->startOfMonth();
         $endOfMonth = now()->endOfMonth();
 
-        $monthlyTotal = Donation::whereBetween('donation_date', [$startOfMonth, $endOfMonth])
-            ->sum('amount');
+        // Calculate Monthly Total
+        // $monthlyTotal = Donation::whereBetween('donation_date', [$startOfMonth, $endOfMonth])->sum('amount');
+        $monthlyTotal = Donation::whereMonth('donation_date', now()->month)
+                                 ->whereYear('donation_date', now()->year)
+                                 ->sum('amount');
 
-        return view('parishioner.dashboard', compact('monthlyTotal'));
+        // Fetch donations within the month
+        $donations = Donation::whereBetween('donation_date', [$startOfMonth, $endOfMonth])->get();
+        
+
+        // Create transactions collection
+        $transactions = $donations->map(function ($donation) {
+            return [
+                'full_name' => $donation->donor_name,
+                'amount' => $donation->amount,
+                'date_time' => $donation->donation_date,
+                'transaction_type' => 'Donation',
+                'transaction_id' => $donation->transaction_id,
+            ];
+        });
+
+        // $transactions = $donationTransactions;
+        return view('admin.payment', compact('monthlyTotal', 'transactions'));
+    }
+    public function showPayment()
+    {
+        $startOfMonth = now()->startOfMonth();
+        $endOfMonth = now()->endOfMonth();
+
+        // Calculate Monthly Total
+        // $monthlyPayment = Payment::whereBetween('payment_date', [$startOfMonth, $endOfMonth])->sum('amount');
+        $monthlyPayment = Payment::whereMonth('payment_date', now()->month)
+                                 ->whereYear('payment_date', now()->year)
+                                 ->sum('amount'); // Ensure 'amount' is the correct column name for payment
+        
+
+        // Fetch payments within the month
+        $payments = Payment::whereBetween('payment_date', [$startOfMonth, $endOfMonth])->get();
+
+        $transactions = $payments->map(function ($payment) {
+            return [
+                'full_name' => $payment->name,
+                'amount' => $payment->amount,
+                'date_time' => $payment->payment_date,
+                'transaction_type' => 'Payment',
+                'transaction_id' => $payment->transaction_id,
+            ];
+        });
+
+        // $transactions = $paymentTransactions;
+        return view('admin.payment', compact('monthlyPayment', 'transactions', 'payments'));
     }
 
 
