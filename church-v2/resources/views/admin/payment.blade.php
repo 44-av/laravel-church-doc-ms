@@ -124,10 +124,16 @@
 
                                             <!-- Image Display -->
                                             <div class="mt-4 text-center">
-                                                <img src="{{ asset('assets/transactions/' . $transaction['transaction_id']) }}" 
+                                                @if(!empty($transaction['transaction_id']))
+                                                    <img src="{{ asset('assets/' . ($transaction['transaction_type'] == 'Payment' ? 'payment' : 'transactions') . '/' . $transaction['transaction_id']) }}" 
                                                     alt="Transaction Image" 
                                                     class="max-w-full max-h-64 object-contain rounded-xl shadow-lg mx-auto">
+                                                @else
+                                                    <p class="text-gray-500">No transaction image uploaded</p>
+                                                @endif
                                             </div>
+
+
                                         </div>
 
                                         <hr class="my-4">
