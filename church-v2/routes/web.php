@@ -50,13 +50,15 @@ Route::middleware('Admin')->group(function () {
     Route::get('/admin/documents', [DocumentController::class, 'index'])->name('documents');
     Route::get('/admin/priest', [PriestController::class, 'index'])->name('priests');
     Route::get('/admin/mail', [MailController::class, 'index'])->name('mails');
+    // 
     Route::get('/admin/donations', [DonationController::class, 'index'])->name('donations');
+    // Route::get('/admin/donation/show', [DonationController::class, 'showDonations'])->name('show_donations');
+    // 
     Route::get('/admin/approval_request', [RequestController::class, 'approval_request'])->name('approval_request');
     Route::get('/admin/payment', [TransactionController::class, 'index'])->name('payment');
     Route::get('/transactions', [TransactionController::class, 'showTable'])->name('transactions.index');
     Route::get('/admin/announcement', [AnnouncementController::class, 'index'])->name('announcement');
-    Route::get('/admin/donation/show', [DonationController::class, 'showDonations'])->name('show_donations');
-    Route::get('/admin/payment/show', [DonationController::class, 'showPayment'])->name('show_payment');
+    // Route::get('/admin/payment/show', [DonationController::class, 'showPayment'])->name('show_payment');
     Route::get('/admin/payment', [TransactionController::class, 'index'])->name('payment');
 
 

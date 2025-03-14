@@ -24,20 +24,26 @@ class DonationController extends Controller
         $this->useValidator = $useValidator;
     }
 
-    public function index()
-    {
-        $search = request('search');
+    public function index(Request $request)
+{
+    $search = $request->query('search');
+    $filter = $request->query('filter'); // Check if filter is set
 
-        $donations = Donation::query()
-            ->when($search, function ($query, $search) {
-                return $query->where('donor_name', 'like', '%' . $search . '%')
-                    ->orWhere('amount', 'like', '%' . $search . '%')
-                    ->orWhere('date', 'like', '%' . $search . '%');
-            })
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
-        return view('admin.donation', compact('donations'));
-    }
+    $donations = Donation::query()
+        ->when($filter === 'monthly', function ($query) {
+            $query->whereBetween('donation_date', [now()->startOfMonth(), now()->endOfMonth()]);
+        })
+        ->when($search, function ($query, $search) {
+            return $query->where('donor_name', 'like', '%' . $search . '%')
+                         ->orWhere('amount', 'like', '%' . $search . '%')
+                         ->orWhere('donation_date', 'like', '%' . $search . '%');
+        })
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
+
+    return view('admin.donation', compact('donations'));
+}
+
 
     public function parishionerIndex()
     {
