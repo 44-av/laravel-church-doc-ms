@@ -92,7 +92,7 @@ class DonationService
                 'donor_phone' => $request->donor_phone,
                 'amount' => $request->amount,
                 'note' => $request->note,
-                'transaction_id' => $request->transaction_id,
+                // 'transaction_id' => $request->transaction_id,
                 'status' => $request->status,
             ]);
 
